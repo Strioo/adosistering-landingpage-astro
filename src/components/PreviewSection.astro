@@ -27,7 +27,7 @@ const {
     <!-- Header content — centered -->
     <div class="text-center max-w-2xl mx-auto">
       <h2
-        class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary-600 leading-tight italic"
+        class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary-600 leading-tight"
       >
         {title.split("\n").map((line, i) => (
           <span class:list={[i > 0 && "block"]}>{line}</span>
@@ -52,24 +52,27 @@ const {
       </div>
     </div>
 
-    <!-- Laptop Mockup with abstract background shape -->
-    <div class="relative mt-16 md:mt-20 flex justify-center">
-      <!-- Abstract green circle blob — behind the laptop -->
-      <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-               w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] md:w-[520px] md:h-[520px] lg:w-[600px] lg:h-[600px]
-               rounded-full bg-primary-600 opacity-90 blur-[2px]"
-        aria-hidden="true"
-      >
-      </div>
+    <!-- Laptop Mockup with oval green background shape -->
+    <div class="relative mt-14 md:mt-16 flex justify-center items-end min-h-[460px] sm:min-h-[520px] md:min-h-[600px]">
 
-      <!-- Laptop image -->
+      <!-- Green oval blob — centered, taller than wide, anchored to bottom -->
+      <div
+        class="absolute bottom-0 left-1/2 -translate-x-1/2
+               w-[340px] h-[380px]
+               sm:w-[460px] sm:h-[500px]
+               md:w-[560px] md:h-[600px]
+               lg:w-[640px] lg:h-[680px]
+               rounded-[50%] bg-primary-500"
+        aria-hidden="true"
+      ></div>
+
+      <!-- Laptop image — sits above the oval, z-10 -->
       <img
         src="/images/laptop-mockup.jpg"
         alt="Dashboard platform ADOSISTERING ditampilkan di layar laptop — monitoring irigasi, peta lokasi, kontrol sprayer, dan data kelembaban tanah secara real-time"
         width="900"
         height="560"
-        class="relative z-10 w-full max-w-3xl h-auto drop-shadow-2xl"
+        class="relative z-10 w-full max-w-[680px] h-auto drop-shadow-2xl mb-0"
         loading="lazy"
         decoding="async"
       />
