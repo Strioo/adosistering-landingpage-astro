@@ -4,21 +4,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        /* ── Style Guide ──────────────────────────────
+         * Primary brand color: #54A610
+         * Generated palette from HSL(92, 83%, 36%)
+         * ─────────────────────────────────────────── */
         primary: {
-          50: "#f0fdf4",
-          100: "#dcfce7",
-          200: "#bbf7d0",
-          300: "#86efac",
-          400: "#4ade80",
-          500: "#22c55e",
-          600: "#16a34a",
-          700: "#15803d",
-          800: "#166534",
-          900: "#14532d",
-          950: "#052e16",
+          50:  "#f4fbea",
+          100: "#e6f5d0",
+          200: "#ceeda6",
+          300: "#aede72",
+          400: "#8fcc48",
+          500: "#54A610", /* ← brand anchor */
+          600: "#4a9210",
+          700: "#3b7410",
+          800: "#315c12",
+          900: "#2a4e14",
+          950: "#142b05",
         },
         accent: {
-          50: "#fffbeb",
+          50:  "#fffbeb",
           100: "#fef3c7",
           200: "#fde68a",
           300: "#fcd34d",
@@ -30,7 +34,7 @@ module.exports = {
           900: "#78350f",
         },
         neutral: {
-          50: "#fafafa",
+          50:  "#fafafa",
           100: "#f5f5f5",
           200: "#e5e5e5",
           300: "#d4d4d4",
@@ -43,8 +47,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', "system-ui", "sans-serif"],
-        display: ['"Plus Jakarta Sans"', "system-ui", "sans-serif"],
+        sans:    ['"Outfit"', "system-ui", "sans-serif"],
+        display: ['"Outfit"', "system-ui", "sans-serif"],
       },
       fontSize: {
         "display-xl": ["4.5rem", { lineHeight: "1.1", fontWeight: "800" }],
