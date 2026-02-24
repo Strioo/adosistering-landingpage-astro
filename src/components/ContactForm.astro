@@ -1,0 +1,250 @@
+---
+/**
+ * ContactForm.astro — "Hubungi Kami" contact section
+ * Design: Contact form + contact info cards (WhatsApp, Email, Address)
+ * Progressive enhanced: normal form POST works, JS adds validation
+ * Uses Formspree (Option A) — configurable via env
+ */
+
+// Formspree endpoint from environment — fallback to placeholder
+const formEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT || "https://formspree.io/f/your-form-id";
+
+const contactMethods = [
+  {
+    label: "Melalui WhatsApp",
+    value: "+62 000 0000 0000",
+    href: "https://wa.me/62000000000",
+    description: "Chat langsung via WhatsApp",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`,
+  },
+  {
+    label: "Waktu Pelayanan",
+    value: "Senin — Jumat, 08.00 — 17.00",
+    href: null,
+    description: "Jam operasional layanan",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  },
+  {
+    label: "Alamat/Kantor Pusat",
+    value: "Indonesia",
+    href: null,
+    description: "Lokasi kantor utama",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  },
+];
+---
+
+<section
+  id="hubungi-kami"
+  class="section-padding bg-white"
+  aria-labelledby="kontak-heading"
+>
+  <div class="container-wide mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+        Kontak
+      </div>
+      <h2 id="kontak-heading" class="section-title">
+        Hubungi <span class="gradient-text">Kami</span>
+      </h2>
+      <p class="section-subtitle">
+        Tertarik dengan sistem irigasi pintar kami? Hubungi kami untuk konsultasi, demo produk, atau informasi lebih lanjut.
+      </p>
+    </div>
+
+    <!-- Contact Methods -->
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      {
+        contactMethods.map((method) => (
+          <div class="card text-center">
+            <div class="w-14 h-14 mx-auto mb-4 bg-primary-100 rounded-2xl flex items-center justify-center text-primary-600">
+              <span set:html={method.icon} />
+            </div>
+            <h3 class="text-heading-sm text-neutral-900 mb-1">{method.label}</h3>
+            <p class="text-body-sm text-neutral-500 mb-2">{method.description}</p>
+            {method.href ? (
+              <a
+                href={method.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary-600 font-semibold hover:text-primary-700 transition-colors text-sm"
+              >
+                {method.value}
+              </a>
+            ) : (
+              <p class="text-neutral-700 font-medium text-sm">{method.value}</p>
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Contact Form -->
+    <div class="max-w-2xl mx-auto">
+      <div class="card p-8">
+        <h3 class="text-heading-md text-neutral-900 text-center mb-6">
+          Kirim Pesan Kepada Kami
+        </h3>
+        <form
+          action={formEndpoint}
+          method="POST"
+          id="contact-form"
+          class="space-y-5"
+          novalidate
+        >
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="nama" class="block text-sm font-medium text-neutral-700 mb-1.5">
+                Nama Lengkap <span class="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="nama"
+                name="nama"
+                required
+                autocomplete="name"
+                placeholder="Masukkan nama lengkap"
+                class="w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                aria-required="true"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-neutral-700 mb-1.5">
+                Email <span class="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="contoh@email.com"
+                class="w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                aria-required="true"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="telepon" class="block text-sm font-medium text-neutral-700 mb-1.5">
+              Nomor Telepon
+            </label>
+            <input
+              type="tel"
+              id="telepon"
+              name="telepon"
+              autocomplete="tel"
+              placeholder="+62 8xx xxxx xxxx"
+              class="w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            />
+          </div>
+
+          <div>
+            <label for="subjek" class="block text-sm font-medium text-neutral-700 mb-1.5">
+              Subjek <span class="text-red-500" aria-hidden="true">*</span>
+            </label>
+            <select
+              id="subjek"
+              name="subjek"
+              required
+              class="w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors bg-white"
+              aria-required="true"
+            >
+              <option value="">Pilih subjek</option>
+              <option value="demo">Permintaan Demo Produk</option>
+              <option value="konsultasi">Konsultasi Teknis</option>
+              <option value="kerjasama">Peluang Kerja Sama</option>
+              <option value="harga">Informasi Harga</option>
+              <option value="lainnya">Lainnya</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="pesan" class="block text-sm font-medium text-neutral-700 mb-1.5">
+              Pesan <span class="text-red-500" aria-hidden="true">*</span>
+            </label>
+            <textarea
+              id="pesan"
+              name="pesan"
+              required
+              rows="4"
+              placeholder="Tulis pesan Anda di sini..."
+              class="w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-y"
+              aria-required="true"
+            ></textarea>
+          </div>
+
+          <!-- Honeypot for spam prevention -->
+          <div class="hidden" aria-hidden="true">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- Status message -->
+          <div id="form-status" class="hidden text-sm text-center py-3 rounded-lg" role="alert"></div>
+
+          <button
+            type="submit"
+            class="btn-primary w-full text-base py-3.5"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+            Kirim Pesan
+          </button>
+
+          <p class="text-xs text-neutral-400 text-center">
+            Dengan mengirim pesan, Anda menyetujui
+            <a href="#" class="underline hover:text-neutral-600">kebijakan privasi</a> kami.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progressive enhancement: client-side validation -->
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", function () {
+      var form = document.getElementById("contact-form");
+      var status = document.getElementById("form-status");
+      if (!form || !status) return;
+
+      form.addEventListener("submit", function (e) {
+        // Basic client-side validation
+        var nama = form.querySelector("#nama");
+        var email = form.querySelector("#email");
+        var pesan = form.querySelector("#pesan");
+        var subjek = form.querySelector("#subjek");
+        var valid = true;
+
+        [nama, email, pesan, subjek].forEach(function (field) {
+          if (field && !field.value.trim()) {
+            field.classList.add("border-red-500");
+            valid = false;
+          } else if (field) {
+            field.classList.remove("border-red-500");
+          }
+        });
+
+        if (email && email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+          email.classList.add("border-red-500");
+          valid = false;
+        }
+
+        if (!valid) {
+          e.preventDefault();
+          status.textContent = "Mohon lengkapi semua field yang wajib diisi.";
+          status.className = "text-sm text-center py-3 rounded-lg bg-red-50 text-red-700";
+          return;
+        }
+
+        // If Formspree endpoint, let the form submit normally
+        // The form action already points to Formspree
+      });
+    });
+  </script>
+</section>

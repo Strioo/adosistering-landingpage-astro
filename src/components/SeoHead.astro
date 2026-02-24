@@ -1,0 +1,163 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  twitterCard?: string;
+  publishDate?: string;
+  modifiedDate?: string;
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const {
+  title = "ADOSISTERING — Sistem Irigasi Pintar Berbasis IoT untuk Pertanian Efisien",
+  description = "Sistem irigasi otomatis berbasis IoT untuk monitoring irigasi jarak jauh. Smart irrigation Indonesia dengan kontrol pompa air via website. Hemat air, tingkatkan hasil panen.",
+  canonical = Astro.url.href,
+  ogImage = "/images/placeholder-hero.svg",
+  ogType = "website",
+  twitterCard = "summary_large_image",
+  publishDate,
+  modifiedDate,
+  schema = [],
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, "") || "https://adosistering.id";
+const fullOgImage = ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`;
+const fullCanonical = canonical.startsWith("http") ? canonical : `${siteUrl}${canonical}`;
+
+// Default JSON-LD schemas
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "ADOSISTERING",
+  url: siteUrl,
+  logo: `${siteUrl}/logos/logo-placeholder.svg`,
+  description: "Pengembang sistem irigasi pintar berbasis IoT untuk pertanian efisien di Indonesia",
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+62-000-0000-0000",
+    contactType: "customer service",
+    areaServed: "ID",
+    availableLanguage: "Indonesian",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "ID",
+    addressLocality: "Indonesia",
+  },
+  sameAs: [
+    "https://instagram.com/adosistering",
+    "https://linkedin.com/company/adosistering",
+  ],
+};
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "IoT Smart Irrigation System — ADOSISTERING",
+  description: "Sistem irigasi otomatis berbasis IoT dengan monitoring jarak jauh, sensor kelembaban tanah, kontrol pompa air via website, dan energi panel surya.",
+  image: fullOgImage,
+  brand: {
+    "@type": "Brand",
+    name: "ADOSISTERING",
+  },
+  category: "Agricultural Technology",
+  offers: {
+    "@type": "Offer",
+    availability: "https://schema.org/InStock",
+    priceCurrency: "IDR",
+    url: `${siteUrl}/#hubungi-kami`,
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Beranda",
+      item: siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Sistem Irigasi Pintar IoT",
+      item: `${siteUrl}/`,
+    },
+  ],
+};
+
+const allSchemas = [organizationSchema, productSchema, breadcrumbSchema, ...schema];
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<link rel="canonical" href={fullCanonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Language -->
+<meta http-equiv="content-language" content="id" />
+<html lang="id" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={fullCanonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={fullOgImage} />
+<meta property="og:locale" content="id_ID" />
+<meta property="og:site_name" content="ADOSISTERING" />
+{publishDate && <meta property="article:published_time" content={publishDate} />}
+{modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:url" content={fullCanonical} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullOgImage} />
+
+<!-- Additional SEO -->
+<meta name="keywords" content="sistem irigasi otomatis berbasis IoT, monitoring irigasi jarak jauh, smart irrigation Indonesia, kontrol pompa air via website, sensor kelembaban tanah, irigasi pintar, pertanian efisien, IoT pertanian" />
+<meta name="author" content="ADOSISTERING" />
+<meta name="geo.region" content="ID" />
+<meta name="geo.country" content="ID" />
+
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+<link rel="manifest" href="/favicons/site.webmanifest" />
+<meta name="theme-color" content="#166534" />
+
+<!-- Preconnect & Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<noscript>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+  />
+</noscript>
+
+<!-- JSON-LD Structured Data -->
+{allSchemas.map((s) => (
+  <script type="application/ld+json" set:html={JSON.stringify(s)} />
+))}

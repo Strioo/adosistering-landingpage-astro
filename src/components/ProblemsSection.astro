@@ -1,0 +1,104 @@
+---
+/**
+ * ProblemsSection.astro — "Masalah Umum Irigasi" section
+ * Design: Alternating layout with problem cards, images, and descriptions
+ * Shows 4 common irrigation problems farmers face
+ */
+import ImageOptim from "./ImageOptim.astro";
+
+const problems = [
+  {
+    id: 1,
+    title: "Penyiraman Dilakukan Hanya Berdasarkan Perkiraan",
+    description:
+      "Petani masih mengandalkan perkiraan cuaca dan intuisi untuk menentukan waktu dan volume penyiraman. Hal ini menyebabkan pemborosan air atau kekurangan irigasi yang berdampak pada kualitas tanaman.",
+    image: "/images/placeholder-feature-1.svg",
+    alt: "Ilustrasi petani menyiram lahan berdasarkan perkiraan tanpa data sensor",
+  },
+  {
+    id: 2,
+    title: "Penyiraman Dilakukan Hanya Berdasarkan Penjadwalan",
+    description:
+      "Sistem irigasi konvensional berbasis jadwal tetap tidak mempertimbangkan kondisi tanah aktual, kelembaban, atau cuaca. Tanaman bisa kelebihan atau kekurangan air.",
+    image: "/images/placeholder-feature-2.svg",
+    alt: "Ilustrasi sistem penjadwalan irigasi konvensional yang tidak responsif terhadap kondisi lahan",
+  },
+  {
+    id: 3,
+    title: "Sulit Memantau Kondisi Lahan",
+    description:
+      "Lahan pertanian yang luas dan tersebar membuat petani kesulitan memantau kondisi kelembaban tanah, suhu, dan status irigasi secara real-time di seluruh area.",
+    image: "/images/placeholder-feature-3.svg",
+    alt: "Ilustrasi kesulitan monitoring kondisi lahan pertanian yang luas secara manual",
+  },
+  {
+    id: 4,
+    title: "Penyiraman Dilakukan Manual Berdasarkan Pertanian",
+    description:
+      "Proses penyiraman manual membutuhkan tenaga kerja yang besar, waktu yang lama, dan tidak efisien. Petani harus hadir secara fisik untuk mengoperasikan pompa air.",
+    image: "/images/placeholder-feature-4.svg",
+    alt: "Ilustrasi penyiraman manual yang membutuhkan banyak tenaga kerja dan tidak efisien",
+  },
+];
+---
+
+<section
+  id="masalah"
+  class="section-padding bg-white"
+  aria-labelledby="masalah-heading"
+>
+  <div class="container-wide mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        Masalah Umum Irigasi
+      </div>
+      <h2 id="masalah-heading" class="section-title">
+        Tantangan yang Dihadapi <span class="gradient-text">Petani Indonesia</span>
+      </h2>
+      <p class="section-subtitle">
+        Irigasi konvensional memiliki banyak keterbatasan yang menghambat produktivitas dan efisiensi pertanian.
+      </p>
+    </div>
+
+    <!-- Problems Grid -->
+    <div class="space-y-12 lg:space-y-20">
+      {
+        problems.map((problem, index) => (
+          <div
+            class:list={[
+              "grid md:grid-cols-2 gap-8 lg:gap-16 items-center",
+              index % 2 !== 0 && "md:[&>*:first-child]:order-2",
+            ]}
+          >
+            <div class="space-y-4">
+              <div class="inline-flex items-center justify-center w-10 h-10 bg-primary-100 text-primary-700 rounded-lg font-bold text-lg">
+                {problem.id}
+              </div>
+              <h3 class="text-heading-lg text-neutral-900">
+                {problem.title}
+              </h3>
+              <p class="text-body-md text-neutral-600 leading-relaxed">
+                {problem.description}
+              </p>
+            </div>
+            <div class="relative">
+              <ImageOptim
+                src={problem.image}
+                alt={problem.alt}
+                width={600}
+                height={400}
+                class="w-full h-auto rounded-2xl shadow-soft"
+              />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,64 @@
+---
+import SeoHead from "@/components/SeoHead.astro";
+import "../styles/globals.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  schema?: Record<string, unknown>[];
+}
+
+const { title, description, canonical, ogImage, schema } = Astro.props;
+---
+
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <SeoHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      schema={schema}
+    />
+  </head>
+  <body class="min-h-screen flex flex-col antialiased">
+    <!-- Skip Navigation Link (Accessibility) -->
+    <a
+      href="#konten-utama"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold"
+    >
+      Langsung ke konten utama
+    </a>
+
+    <slot />
+
+    <!-- Minimal inline JS for mobile menu toggle only -->
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuBtn = document.getElementById("mobile-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        if (menuBtn && mobileMenu) {
+          menuBtn.addEventListener("click", function () {
+            const expanded =
+              menuBtn.getAttribute("aria-expanded") === "true";
+            menuBtn.setAttribute("aria-expanded", String(!expanded));
+            mobileMenu.classList.toggle("hidden");
+          });
+          // Close menu when clicking a nav link
+          mobileMenu.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+              mobileMenu.classList.add("hidden");
+              menuBtn.setAttribute("aria-expanded", "false");
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

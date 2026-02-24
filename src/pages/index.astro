@@ -1,0 +1,38 @@
+---
+/**
+ * index.astro — Main landing page
+ * Composes all section components within BaseLayout
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Hero from "@/components/Hero.astro";
+import ProblemsSection from "@/components/ProblemsSection.astro";
+import HowItWorks from "@/components/HowItWorks.astro";
+import FeaturesGrid from "@/components/FeaturesGrid.astro";
+import StatsSection from "@/components/StatsSection.astro";
+import UseCases from "@/components/UseCases.astro";
+import ContactForm from "@/components/ContactForm.astro";
+import Testimonial from "@/components/Testimonial.astro";
+import CTA from "@/components/CTA.astro";
+import FAQSection from "@/components/FAQSection.astro";
+import Footer from "@/components/Footer.astro";
+---
+
+<BaseLayout>
+  <Header />
+
+  <main id="konten-utama">
+    <Hero />
+    <ProblemsSection />
+    <HowItWorks />
+    <FeaturesGrid />
+    <StatsSection />
+    <UseCases />
+    <ContactForm />
+    <Testimonial />
+    <FAQSection />
+    <CTA />
+  </main>
+
+  <Footer />
+</BaseLayout>

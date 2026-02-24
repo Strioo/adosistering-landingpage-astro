@@ -1,0 +1,65 @@
+---
+/**
+ * StatsSection.astro — Statistics/achievement counters
+ * Design: Dark green background with 4 stat items: 2023, 70+, 3, 60+
+ */
+const stats = [
+  {
+    value: "2023",
+    label: "Tahun Berdiri",
+    description: "Dimulai sejak tahun 2023",
+  },
+  {
+    value: "70+",
+    label: "Hektar Terjangkau",
+    description: "Luas lahan yang terlayani",
+  },
+  {
+    value: "3",
+    label: "Lokasi Uji Coba",
+    description: "Titik implementasi lapangan",
+  },
+  {
+    value: "60+",
+    label: "Pengguna Aktif",
+    description: "Petani yang menggunakan sistem",
+  },
+];
+---
+
+<section
+  class="relative py-16 md:py-20 bg-gradient-to-r from-primary-800 via-primary-700 to-primary-800 overflow-hidden"
+  aria-label="Statistik pencapaian ADOSISTERING"
+>
+  <!-- Background decoration -->
+  <div class="absolute inset-0 opacity-5" aria-hidden="true">
+    <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="stats-pattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="1" height="1" fill="white" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#stats-pattern)" />
+    </svg>
+  </div>
+
+  <div class="relative container-wide mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      {
+        stats.map((stat) => (
+          <div class="text-center">
+            <div class="text-4xl sm:text-5xl lg:text-display-sm font-extrabold text-white mb-2">
+              {stat.value}
+            </div>
+            <div class="text-lg font-semibold text-accent-300 mb-1">
+              {stat.label}
+            </div>
+            <div class="text-sm text-white/60">
+              {stat.description}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

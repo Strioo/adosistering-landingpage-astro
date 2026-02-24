@@ -1,0 +1,111 @@
+---
+/**
+ * FAQSection.astro — FAQ section with accordion
+ * Uses data from content/faq.mdx and generates FAQPage JSON-LD
+ */
+const faqs = [
+  {
+    question: "Apa itu ADOSISTERING?",
+    answer:
+      "ADOSISTERING adalah sistem irigasi pintar berbasis IoT (Internet of Things) yang dirancang untuk mengoptimalkan penggunaan air di lahan pertanian. Sistem ini menggunakan sensor kelembaban tanah, kontrol pompa otomatis, dan monitoring jarak jauh melalui platform web.",
+  },
+  {
+    question: "Bagaimana cara kerja sistem irigasi IoT ini?",
+    answer:
+      "Sensor yang dipasang di lahan pertanian mengumpulkan data kelembaban tanah, suhu, dan kondisi lingkungan secara real-time. Data dikirim ke platform cloud melalui jaringan IoT, kemudian sistem secara otomatis mengaktifkan atau menonaktifkan pompa air berdasarkan kebutuhan tanaman.",
+  },
+  {
+    question: "Apakah sistem ini membutuhkan jaringan listrik?",
+    answer:
+      "Tidak. ADOSISTERING menggunakan panel surya sebagai sumber energi utama, sehingga dapat beroperasi di daerah yang belum terjangkau jaringan listrik.",
+  },
+  {
+    question: "Berapa luas lahan yang bisa dijangkau?",
+    answer:
+      "Sistem ADOSISTERING dapat menjangkau lahan pertanian mulai dari skala kecil (kurang dari 1 hektar) hingga puluhan hektar, tergantung konfigurasi sensor dan infrastruktur yang dipasang.",
+  },
+  {
+    question: "Apakah petani perlu keahlian teknologi khusus?",
+    answer:
+      "Tidak. Platform monitoring dirancang dengan antarmuka yang sederhana dan mudah dipahami. Kami juga menyediakan pelatihan dan pendampingan untuk pengguna baru.",
+  },
+  {
+    question: "Bagaimana cara menghubungi tim ADOSISTERING?",
+    answer:
+      "Anda dapat menghubungi kami melalui WhatsApp, email, atau mengisi formulir kontak di halaman ini. Tim kami siap melayani pada hari Senin — Jumat, pukul 08.00 — 17.00 WIB.",
+  },
+];
+
+// Generate FAQPage JSON-LD
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<section
+  class="section-padding bg-white"
+  aria-labelledby="faq-heading"
+>
+  <div class="container-narrow mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+        FAQ
+      </div>
+      <h2 id="faq-heading" class="section-title">
+        Pertanyaan yang <span class="gradient-text">Sering Diajukan</span>
+      </h2>
+      <p class="section-subtitle">
+        Temukan jawaban untuk pertanyaan umum tentang sistem irigasi pintar ADOSISTERING.
+      </p>
+    </div>
+
+    <!-- FAQ Accordion (CSS-only with details/summary) -->
+    <div class="space-y-3">
+      {
+        faqs.map((faq, index) => (
+          <details
+            class="group bg-neutral-50 rounded-xl border border-neutral-200 overflow-hidden"
+            open={index === 0}
+          >
+            <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none text-left font-semibold text-neutral-900 hover:bg-neutral-100 transition-colors">
+              <span class="text-body-md">{faq.question}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-neutral-400 shrink-0 transition-transform duration-200 group-open:rotate-180"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-5 text-body-sm text-neutral-600 leading-relaxed">
+              {faq.answer}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- FAQ JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</section>

@@ -1,0 +1,166 @@
+---
+/**
+ * FeaturesGrid.astro — "Sistem Irigasi dalam Satu Platform Terintegrasi"
+ * Design: Tabbed interface showing 4 features:
+ *   1. Energi Panel Surya
+ *   2. Kontrol Irigasi
+ *   3. Sensor Kelembaban Tanah
+ *   4. Riwayat Irigasi
+ * Each tab shows a screenshot/image + description
+ */
+import ImageOptim from "./ImageOptim.astro";
+
+const features = [
+  {
+    id: "energi",
+    label: "Energi Terbarukan",
+    title: "Energi Terbarukan Berbasis Panel Surya",
+    description:
+      "Sistem ADOSISTERING menggunakan panel surya sebagai sumber energi utama. Hemat biaya operasional, ramah lingkungan, dan dapat beroperasi di daerah tanpa jaringan listrik.",
+    image: "/images/placeholder-solar.svg",
+    alt: "Panel surya sebagai sumber energi sistem irigasi pintar ADOSISTERING",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+  },
+  {
+    id: "kontrol",
+    label: "Kontrol Irigasi",
+    title: "Kontrol Irigasi",
+    description:
+      "Kontrol pompa air dan katup irigasi dari mana saja melalui dashboard web. Atur jadwal otomatis, mode manual, atau biarkan sistem memutuskan berdasarkan data sensor.",
+    image: "/images/placeholder-control.svg",
+    alt: "Dashboard kontrol irigasi ADOSISTERING untuk mengatur pompa air secara remote",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg>`,
+  },
+  {
+    id: "sensor",
+    label: "Sensor Tanah",
+    title: "Sensor Kelembaban Tanah",
+    description:
+      "Sensor IoT memonitor kelembaban tanah, suhu, dan pH secara real-time. Data ditampilkan dalam bentuk grafik dan gauge yang mudah dipahami untuk pengambilan keputusan cepat.",
+    image: "/images/placeholder-sensor.svg",
+    alt: "Tampilan data sensor kelembaban tanah dan suhu pada dashboard ADOSISTERING",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>`,
+  },
+  {
+    id: "riwayat",
+    label: "Riwayat Irigasi",
+    title: "Riwayat Irigasi",
+    description:
+      "Lihat riwayat lengkap aktivitas irigasi, penggunaan air, dan data sensor dalam format tabel dan grafik. Analisis tren untuk mengoptimalkan strategi irigasi.",
+    image: "/images/placeholder-history.svg",
+    alt: "Tabel dan grafik riwayat irigasi pada platform ADOSISTERING",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  },
+];
+---
+
+<section
+  id="fitur"
+  class="section-padding bg-white"
+  aria-labelledby="fitur-heading"
+>
+  <div class="container-wide mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        Fitur
+      </div>
+      <h2 id="fitur-heading" class="section-title">
+        Sistem Irigasi dalam Satu <span class="gradient-text">Platform Terintegrasi</span>
+      </h2>
+      <p class="section-subtitle">
+        Semua yang Anda butuhkan untuk mengelola irigasi secara cerdas — dalam satu dashboard yang mudah digunakan.
+      </p>
+    </div>
+
+    <!-- Feature Tabs (CSS-only, no JS hydration) -->
+    <div class="feature-tabs">
+      <!-- Tab Buttons -->
+      <div class="flex flex-wrap justify-center gap-2 mb-10" role="tablist" aria-label="Fitur platform">
+        {features.map((feature, index) => (
+          <label
+            class:list={[
+              "cursor-pointer inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-200",
+              "has-[:checked]:bg-primary-600 has-[:checked]:text-white has-[:checked]:shadow-lg",
+              "bg-neutral-100 text-neutral-600 hover:bg-neutral-200",
+            ]}
+          >
+            <input
+              type="radio"
+              name="feature-tab"
+              value={feature.id}
+              checked={index === 0}
+              class="sr-only"
+              role="tab"
+              aria-controls={`panel-${feature.id}`}
+            />
+            <span set:html={feature.icon} />
+            <span class="hidden sm:inline">{feature.label}</span>
+          </label>
+        ))}
+      </div>
+
+      <!-- Tab Panels -->
+      {features.map((feature, index) => (
+        <div
+          id={`panel-${feature.id}`}
+          class:list={[
+            "feature-panel grid md:grid-cols-2 gap-8 lg:gap-16 items-center",
+            index !== 0 && "hidden",
+          ]}
+          data-tab={feature.id}
+          role="tabpanel"
+          aria-labelledby={`tab-${feature.id}`}
+        >
+          <div class="space-y-6">
+            <h3 class="text-heading-lg text-neutral-900">{feature.title}</h3>
+            <p class="text-body-md text-neutral-600 leading-relaxed">
+              {feature.description}
+            </p>
+            <a
+              href="#hubungi-kami"
+              class="btn-primary text-sm"
+            >
+              Pelajari Lebih Lanjut
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+          <div>
+            <ImageOptim
+              src={feature.image}
+              alt={feature.alt}
+              width={800}
+              height={600}
+              class="w-full h-auto rounded-2xl shadow-card"
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Inline script for tab switching (minimal JS, no framework) -->
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", function () {
+      const radios = document.querySelectorAll('input[name="feature-tab"]');
+      const panels = document.querySelectorAll(".feature-panel");
+      radios.forEach(function (radio) {
+        radio.addEventListener("change", function () {
+          panels.forEach(function (panel) {
+            panel.classList.add("hidden");
+          });
+          var target = document.querySelector('[data-tab="' + radio.value + '"]');
+          if (target) target.classList.remove("hidden");
+        });
+      });
+    });
+  </script>
+</section>

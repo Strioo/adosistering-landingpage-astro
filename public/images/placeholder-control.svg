@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" rx="12" fill="#f0fdf4"/>
+  <rect x="100" y="100" width="600" height="350" rx="16" fill="white" stroke="#d4d4d4" stroke-width="1"/>
+  <rect x="130" y="130" width="540" height="30" rx="4" fill="#22c55e" opacity="0.2"/>
+  <rect x="130" y="180" width="540" height="240" rx="4" fill="#f5f5f5"/>
+  <circle cx="250" cy="300" r="60" fill="#22c55e" opacity="0.15"/>
+  <circle cx="400" cy="300" r="40" fill="#16a34a" opacity="0.15"/>
+  <circle cx="530" cy="300" r="50" fill="#15803d" opacity="0.15"/>
+  <text x="400" y="500" font-family="system-ui" font-size="18" fill="#166534" text-anchor="middle">Kontrol Irigasi Interface</text>
+  <text x="400" y="530" font-family="system-ui" font-size="14" fill="#6b7280" text-anchor="middle">Replace with actual control panel screenshot</text>
+</svg>
