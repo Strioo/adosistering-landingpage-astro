@@ -2,21 +2,16 @@
 /**
  * Hero.astro — Full-width hero section with background image + dark overlay
  * Design: `/images/hero-background.jpg` as bg, semi-transparent dark overlay,
- * fixed 800px height, left-aligned "ADOSISTERING" heading, IoT subtitle,
- * and 2 CTA buttons.
+ * fixed 800px height, left-aligned "ADOSISTERING" heading + IoT subtitle.
  */
 export interface Props {
   title?: string;
   subtitle?: string;
-  primaryCta?: { label: string; href: string };
-  secondaryCta?: { label: string; href: string };
 }
 
 const {
   title = "ADOSISTERING",
   subtitle = "Sistem Irigasi Cerdas Berbasis IoT untuk Mengoptimalkan Pengairan Lahan Kering",
-  primaryCta = { label: "Mulai Sekarang", href: "#hubungi-kami" },
-  secondaryCta = { label: "Pelajari Lebih Lanjut", href: "#masalah" },
 } = Astro.props;
 ---
 
@@ -53,44 +48,10 @@ const {
 
         <!-- Subtitle -->
         <p
-          class="mt-5 text-base sm:text-lg md:text-xl text-white/85 leading-relaxed max-w-xl"
+          class="mt-5 text-base sm:text-lg md:text-xl text-white/80 leading-relaxed max-w-xl"
         >
           {subtitle}
         </p>
-
-        <!-- CTA Buttons -->
-        <div class="mt-8 flex flex-col sm:flex-row gap-4">
-          <a
-            href={primaryCta.href}
-            class="inline-flex items-center justify-center gap-2 px-8 py-3.5
-                   bg-primary-600 text-white text-base font-semibold rounded-full
-                   hover:bg-primary-500 shadow-lg hover:shadow-xl
-                   transition-all duration-300"
-          >
-            {primaryCta.label}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <a
-            href={secondaryCta.href}
-            class="inline-flex items-center justify-center gap-2 px-8 py-3.5
-                   bg-white/10 text-white text-base font-semibold rounded-full
-                   border border-white/25 backdrop-blur-sm
-                   hover:bg-white/20 transition-all duration-200"
-          >
-            {secondaryCta.label}
-          </a>
-        </div>
       </div>
     </div>
   </div>

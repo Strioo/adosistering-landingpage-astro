@@ -94,6 +94,14 @@ const breadcrumbSchema = {
 };
 
 const allSchemas = [organizationSchema, productSchema, breadcrumbSchema, ...schema];
+
+// Build conditional meta tags in frontmatter to avoid template expression leaking
+const publishDateMeta = publishDate
+  ? `<meta property="article:published_time" content="${publishDate}" />`
+  : "";
+const modifiedDateMeta = modifiedDate
+  ? `<meta property="article:modified_time" content="${modifiedDate}" />`
+  : "";
 ---
 
 <!-- Primary Meta Tags -->
@@ -115,8 +123,8 @@ const allSchemas = [organizationSchema, productSchema, breadcrumbSchema, ...sche
 <meta property="og:image" content={fullOgImage} />
 <meta property="og:locale" content="id_ID" />
 <meta property="og:site_name" content="ADOSISTERING" />
-{publishDate && <meta property="article:published_time" content={publishDate} />}
-{modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
+<Fragment set:html={publishDateMeta} />
+<Fragment set:html={modifiedDateMeta} />
 
 <!-- Twitter -->
 <meta name="twitter:card" content={twitterCard} />
