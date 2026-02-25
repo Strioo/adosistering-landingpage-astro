@@ -36,6 +36,10 @@
     @apply max-w-7xl mx-auto;
   }
 
+  .container-full {
+    @apply w-full;
+  }
+
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3
            bg-primary-600 text-white font-semibold rounded-lg

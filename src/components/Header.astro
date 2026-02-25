@@ -18,7 +18,7 @@ const navLinks = [
   class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
   role="banner"
 >
-  <div class="container-wide mx-auto px-4 sm:px-6 lg:px-8 pt-5">
+  <div class="container-full px-4 sm:px-6 lg:px-12 xl:px-16 pt-5">
     <!-- Glassmorphism navbar pill -->
     <nav
       class="relative flex items-center justify-between px-5 sm:px-6 lg:px-8 py-3.5
@@ -29,47 +29,49 @@ const navLinks = [
       <!-- Logo -->
       <a
         href="/"
-        class="flex items-center gap-2.5 shrink-0"
+        class="flex items-center justify-center gap-2.5 shrink-0"
         aria-label="ADOSISTERING — Kembali ke beranda"
       >
         <!-- TODO: replace with actual logo uploaded to /public/logos/ -->
         <img
-          src="/logos/logo.svg"
+          src="/logos/logo-text.svg"
           alt="Logo ADOSISTERING"
           width="180"
           height="40"
-          class="h-9 md:h-10 w-auto"
+          class="h-11 md:h-12 w-auto"
           loading="eager"
         />
       </a>
 
-      <!-- Desktop Navigation -->
-      <ul class="hidden lg:flex items-center gap-1" role="list">
-        {
-          navLinks.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="nav-link px-4 py-2 text-sm font-medium text-white/90 hover:text-white
+      <div class="flex items-center gap-4">
+        <!-- Desktop Navigation -->
+        <ul class="hidden lg:flex items-center gap-1" role="list">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="nav-link px-4 py-2 text-sm font-medium text-white/90 hover:text-white
                        hover:bg-white/10 rounded-full transition-all duration-200"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
 
-      <!-- Desktop CTA -->
-      <a
-        href="#hubungi-kami"
-        class="hidden lg:inline-flex items-center gap-2 px-7 py-2.5
+        <!-- Desktop CTA -->
+        <a
+          href="#hubungi-kami"
+          class="hidden lg:inline-flex items-center gap-2 px-7 py-2.5
                bg-neutral-800/80 text-white text-sm font-semibold rounded-full
                hover:bg-neutral-900 backdrop-blur-sm
                transition-all duration-200"
-      >
-        Hubungi Kami
-      </a>
+        >
+          Hubungi Kami
+        </a>
+      </div>
 
       <!-- Mobile Menu Button -->
       <button
@@ -87,10 +89,7 @@ const navLinks = [
           stroke="currentColor"
           stroke-width="2"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4 6h16M4 12h16M4 18h16"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
     </nav>
@@ -177,9 +176,7 @@ const navLinks = [
   function updateHeader() {
     if (!header) return;
     const scrollY = window.scrollY;
-    const heroBottom = heroSection
-      ? heroSection.offsetTop + heroSection.offsetHeight
-      : 600;
+    const heroBottom = heroSection ? heroSection.offsetTop + heroSection.offsetHeight : 600;
 
     const nav = header.querySelector("nav");
     if (!nav) return;

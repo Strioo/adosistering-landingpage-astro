@@ -1,64 +1,52 @@
 ---
-/**
- * ImageOptim.astro — Helper component for optimized <picture> with AVIF/WebP/JPEG srcset
- * Usage: <ImageOptim src="/images/feature.jpg" alt="Description" sizes="(max-width: 768px) 100vw, 50vw" priority={false} />
- */
+import { Image } from "astro:assets";
+
 export interface Props {
-  src: string;
+  src: ImageMetadata | string;
   alt: string;
   width?: number;
   height?: number;
   sizes?: string;
   priority?: boolean;
   class?: string;
-  rounded?: boolean;
+  quality?: number;
 }
 
 const {
   src,
   alt,
-  width,
+  width = 800,
   height,
-  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw",
   priority = false,
   class: className = "",
-  rounded = false,
+  quality = 80,
 } = Astro.props;
 
-// Derive base path and extension
-const basePath = src.replace(/\.[^.]+$/, "");
-const ext = src.split(".").pop();
-
-// For placeholder SVGs, just render a simple img
-const isSvg = ext === "svg";
+const isStringPath = typeof src === "string";
 ---
 
-{isSvg ? (
+{isStringPath ? (
   <img
-    src={src}
+    src={src as string}
     alt={alt}
     width={width}
     height={height}
     loading={priority ? "eager" : "lazy"}
     decoding={priority ? "sync" : "async"}
-    fetchpriority={priority ? "high" : undefined}
-    class:list={[className, rounded && "rounded-2xl"]}
+    class={className}
   />
 ) : (
-  <picture>
-    {/* AVIF source — TODO: generate AVIF variants in build pipeline */}
-    {/* <source type="image/avif" srcset={`${basePath}@640.avif 640w, ${basePath}@960.avif 960w, ${basePath}@1280.avif 1280w`} sizes={sizes} /> */}
-    {/* WebP source — TODO: generate WebP variants in build pipeline */}
-    {/* <source type="image/webp" srcset={`${basePath}@640.webp 640w, ${basePath}@960.webp 960w, ${basePath}@1280.webp 1280w`} sizes={sizes} /> */}
-    <img
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      loading={priority ? "eager" : "lazy"}
-      decoding={priority ? "sync" : "async"}
-      fetchpriority={priority ? "high" : undefined}
-      class:list={[className, rounded && "rounded-2xl"]}
-    />
-  </picture>
+  <Image
+    src={src as ImageMetadata}
+    alt={alt}
+    width={width}
+    height={height ?? undefined}
+    sizes={sizes}
+    loading={priority ? "eager" : "lazy"}
+    decoding={priority ? "sync" : "async"}
+    fetchpriority={priority ? "high" : "auto"}
+    quality={quality}
+    class={className}
+  />
 )}

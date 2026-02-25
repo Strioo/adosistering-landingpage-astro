@@ -1,10 +1,7 @@
 ---
-/**
- * PreviewSection.astro — Product preview section
- * Design: Centered heading + subtitle + CTA button, laptop mockup image
- * sitting on top of an abstract green circle background shape.
- * Matches the provided design comp exactly.
- */
+import { Image } from "astro:assets";
+import laptopMockup from "@/assets/images/laptop-mockup.png";
+
 export interface Props {
   title?: string;
   subtitle?: string;
@@ -55,26 +52,35 @@ const {
     <!-- Laptop Mockup with oval green background shape -->
     <div class="relative mt-14 md:mt-16 flex justify-center items-end min-h-[460px] sm:min-h-[520px] md:min-h-[600px]">
 
-      <!-- Green oval blob — centered, taller than wide, anchored to bottom -->
-      <div
+      <!-- Green organic blob SVG — centered behind the laptop -->
+      <svg
         class="absolute bottom-0 left-1/2 -translate-x-1/2
-               w-[340px] h-[380px]
-               sm:w-[460px] sm:h-[500px]
-               md:w-[560px] md:h-[600px]
-               lg:w-[640px] lg:h-[680px]
-               rounded-[50%] bg-primary-500"
+               w-[340px] sm:w-[460px] md:w-[580px] lg:w-[700px] xl:w-[640px]
+               h-auto"
+        viewBox="0 0 849 796"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
-      ></div>
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M140.345 715.479C17.4383 600.907 -35.1808 429.092 24.881 284.489C95.7624 113.837 245.671 -27.0858 435.681 4.43783C642.131 38.6888 819.945 213.781 846.225 420.754C868.679 597.594 689.452 690.354 531.167 756.442C402.351 810.227 249.929 817.632 140.345 715.479Z"
+          fill="#54A610"
+        />
+      </svg>
+      
 
       <!-- Laptop image — sits above the oval, z-10 -->
-      <img
-        src="/images/laptop-mockup.jpg"
+      <Image
+        src={laptopMockup}
         alt="Dashboard platform ADOSISTERING ditampilkan di layar laptop — monitoring irigasi, peta lokasi, kontrol sprayer, dan data kelembaban tanah secara real-time"
-        width="900"
-        height="560"
+        width={900}
+        height={560}
+        quality={85}
+        sizes="(max-width: 768px) 95vw, (max-width: 1280px) 70vw, 680px"
         class="relative z-10 w-full max-w-[680px] h-auto drop-shadow-2xl mb-0"
         loading="lazy"
-        decoding="async"
       />
     </div>
   </div>
