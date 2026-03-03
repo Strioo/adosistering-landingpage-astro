@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  content: [
+    "./src/components/**/*.{astro,html,js,ts,jsx,tsx}",
+    "./src/layouts/**/*.{astro,html,js,ts}",
+    "./src/pages/**/*.{astro,html,js,ts}",
+    "./src/content/**/*.{md,mdx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -9,12 +14,12 @@ module.exports = {
          * Generated palette from HSL(92, 83%, 36%)
          * ─────────────────────────────────────────── */
         primary: {
-          50:  "#f4fbea",
+          50: "#f4fbea",
           100: "#e6f5d0",
           200: "#ceeda6",
           300: "#aede72",
           400: "#8fcc48",
-          500: "#54A610", /* ← brand anchor */
+          500: "#54A610" /* ← brand anchor */,
           600: "#4a9210",
           700: "#3b7410",
           800: "#315c12",
@@ -22,7 +27,7 @@ module.exports = {
           950: "#142b05",
         },
         accent: {
-          50:  "#fffbeb",
+          50: "#fffbeb",
           100: "#fef3c7",
           200: "#fde68a",
           300: "#fcd34d",
@@ -34,7 +39,7 @@ module.exports = {
           900: "#78350f",
         },
         neutral: {
-          50:  "#fafafa",
+          50: "#fafafa",
           100: "#f5f5f5",
           200: "#e5e5e5",
           300: "#d4d4d4",
@@ -47,7 +52,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans:    ['"Outfit"', "system-ui", "sans-serif"],
+        sans: ['"Outfit"', "system-ui", "sans-serif"],
         display: ['"Outfit"', "system-ui", "sans-serif"],
       },
       fontSize: {
@@ -73,8 +78,7 @@ module.exports = {
       boxShadow: {
         soft: "0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)",
         card: "0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-        elevated:
-          "0 20px 50px -12px rgba(0, 0, 0, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.08)",
+        elevated: "0 20px 50px -12px rgba(0, 0, 0, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.08)",
       },
       animation: {
         "fade-in": "fadeIn 0.6s ease-out forwards",

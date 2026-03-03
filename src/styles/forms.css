@@ -1,0 +1,136 @@
+/**
+ * forms.css — Global form input styles
+ * Adapted from Figma design system.
+ * Import this file in globals.css via: @import "./forms.css";
+ */
+
+@layer components {
+
+  /* ── Input Group Container ──────────────────────────────────── */
+  .form-group {
+    @apply flex flex-col w-full;
+    gap: 6px;
+  }
+
+  /* ── Label ──────────────────────────────────────────────────── */
+  .form-label {
+    display: block;
+    font-size: 0.875rem;   /* 14px */
+    font-weight: 500;
+    color: #4F4F4F;
+    margin-bottom: 0;
+  }
+
+  .form-label .required {
+    @apply text-red-500 ml-0.5;
+  }
+
+  /* Disabled label — when the next sibling is disabled */
+  .form-label:has(+ input:disabled),
+  .form-label:has(+ textarea:disabled),
+  .form-label:has(+ select:disabled) {
+    @apply text-gray-400;
+  }
+
+  /* ── Base Input ─────────────────────────────────────────────── */
+  .form-input {
+    width: 100%;
+    height: 49px;
+    border-radius: 12px;
+    padding: 0 16px;
+    background-color: #ffffff;
+    color: #111827;
+    border: 1px solid #C2C2C2;
+    font-size: 0.9375rem;  /* ~15px */
+    transition: border-color 0.2s ease;
+    outline: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .form-input::placeholder {
+    color: #9CA3AF;
+  }
+
+  /* Hover */
+  .form-input:hover:not(:focus):not(:disabled) {
+    border-color: #9CA3AF;
+  }
+
+  /* Focus — project primary dark green */
+  .form-input:focus {
+    border-color: #3b7410;  /* primary-700 */
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* Filled state */
+  .form-input:not(:placeholder-shown) {
+    color: #111827;
+  }
+
+  /* Disabled */
+  .form-input:disabled {
+    background-color: #F3F4F6;
+    color: #9CA3AF;
+    border-color: #E5E7EB;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  /* Error state */
+  .form-input.is-error {
+    border-color: #E47689;
+  }
+
+  .form-input.is-error:focus {
+    border-color: #E47689;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .form-input.is-error:hover:not(:focus) {
+    border-color: #d95c6f;
+  }
+
+  /* ── Textarea ───────────────────────────────────────────────── */
+  .form-textarea {
+    height: auto;
+    min-height: 120px;
+    padding: 12px 16px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  /* ── Select / Dropdown ──────────────────────────────────────── */
+  .form-select {
+    cursor: pointer;
+    /* Custom caret via SVG background */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px 16px;
+    padding-right: 40px;
+  }
+
+  .form-select:focus {
+    border-color: #3b7410;
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* ── Helper / Hint text ─────────────────────────────────────── */
+  .form-hint {
+    font-size: 0.75rem;  /* 12px */
+    color: #6B7280;
+    margin-top: 4px;
+  }
+
+  /* ── Error message text ─────────────────────────────────────── */
+  .form-error-msg {
+    font-size: 0.75rem;  /* 12px */
+    color: #E47689;
+    margin-top: 4px;
+  }
+}

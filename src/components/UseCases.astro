@@ -1,109 +1,90 @@
 ---
 /**
  * UseCases.astro — "Lokasi Implementasi & Uji Lapangan"
- * Design: Shows implementation locations with images/map
+ * Design: Large green title, 3 location cards over a map background
+ * with decorative green dot-grid patterns on left & right sides.
  */
-import ImageOptim from "./ImageOptim.astro";
+import { Image } from "astro:assets";
+import mapBg from "@/assets/images/map-background.png";
+import sampleImg from "@/assets/images/implement-sample.png";
+
+const locations = [
+  {
+    name: "Desa KedungBenda, Purbalingga",
+    description:
+      "ADOSISTERING mengintegrasikan sensor, kontrol pompa, dan dashboard monitoring untuk membantu petani mengambil keputusan irigasi yang tepat.",
+  },
+  {
+    name: "Kawista Emji Mernek Jenek, Cilacap",
+    description:
+      "ADOSISTERING mengintegrasikan sensor, kontrol pompa, dan dashboard monitoring untuk membantu petani mengambil keputusan irigasi yang tepat.",
+  },
+  {
+    name: "Desa Dawuhan, Banyumas",
+    description:
+      "ADOSISTERING mengintegrasikan sensor, kontrol pompa, dan dashboard monitoring untuk membantu petani mengambil keputusan irigasi yang tepat.",
+  },
+];
 ---
 
 <section
-  id="lokasi"
-  class="section-padding bg-neutral-50"
+  id="implementasi"
+  class="bg-white py-16 md:py-24 lg:py-32 overflow-hidden"
   aria-labelledby="lokasi-heading"
 >
-  <div class="container-wide mx-auto">
-    <!-- Section Header -->
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-          <circle cx="12" cy="10" r="3" />
-        </svg>
-        Lokasi
+  <div class="container-full px-4 sm:px-6 lg:px-12 xl:px-16">
+
+    <!-- Section title — large green bold text, centered -->
+    <h2
+      id="lokasi-heading"
+      class="text-center text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-primary-500 leading-tight mb-14 md:mb-20"
+    >
+      Lokasi Implementasi<br />& Uji Lapangan
+    </h2>
+
+    <!-- Cards area with map background + dot decorations -->
+    <div class="relative pt-4 pb-20 md:pb-28 lg:pb-36 min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-center">
+
+      <!-- Map background image — sits behind the cards -->
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+        <Image
+          src={mapBg}
+          alt=""
+          width={1344}
+          quality={80}
+          class=" object-cover"
+          loading="lazy"
+        />
       </div>
-      <h2 id="lokasi-heading" class="section-title">
-        Lokasi Implementasi & <span class="gradient-text">Uji Lapangan</span>
-      </h2>
-      <p class="section-subtitle">
-        Sistem ADOSISTERING telah diuji coba dan diimplementasikan di beberapa lokasi pertanian di Indonesia.
-      </p>
+
+      <!-- 3 Location cards -->
+      <div class="relative z-10 grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto w-full">
+        {locations.map((loc) => (
+          <div class="bg-white rounded-2xl shadow-lg border border-neutral-100 p-4 sm:p-5">
+            <!-- Image with green border/frame -->
+            <div class="rounded-xl overflow-hidden border-2 border-primary-500 mb-5">
+              <Image
+                src={sampleImg}
+                alt={`Lokasi implementasi ADOSISTERING di ${loc.name}`}
+                width={500}
+                quality={85}
+                class="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </div>
+            <!-- Location name -->
+            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 mb-2 leading-snug">
+              {loc.name}
+            </h3>
+            <!-- Description -->
+            <p class="text-sm sm:text-base text-neutral-500 leading-relaxed">
+              {loc.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
     </div>
 
-    <!-- Locations Grid -->
-    <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
-      <!-- Location Card 1 -->
-      <div class="card overflow-hidden group">
-        <div class="aspect-video overflow-hidden rounded-xl mb-4">
-          <!-- TODO: replace with actual location photo -->
-          <ImageOptim
-            src="/images/placeholder-locations.svg"
-            alt="Lokasi uji coba sistem irigasi pintar ADOSISTERING di lahan pertanian"
-            width={600}
-            height={400}
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-        <h3 class="text-heading-sm text-neutral-900 mb-2">Lokasi Uji Coba 1</h3>
-        <p class="text-body-sm text-neutral-600">
-          Implementasi sistem irigasi otomatis pada lahan padi seluas 20+ hektar dengan sensor kelembaban dan kontrol pompa jarak jauh.
-        </p>
-        <div class="mt-3 flex items-center gap-2 text-sm text-primary-600">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
-          <!-- TODO: Replace with actual location -->
-          <span>Indonesia</span>
-        </div>
-      </div>
-
-      <!-- Location Card 2 -->
-      <div class="card overflow-hidden group">
-        <div class="aspect-video overflow-hidden rounded-xl mb-4">
-          <ImageOptim
-            src="/images/placeholder-locations.svg"
-            alt="Lokasi implementasi irigasi cerdas ADOSISTERING di perkebunan"
-            width={600}
-            height={400}
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-        <h3 class="text-heading-sm text-neutral-900 mb-2">Lokasi Uji Coba 2</h3>
-        <p class="text-body-sm text-neutral-600">
-          Pilot project sistem irigasi berbasis energi surya dengan monitoring suhu dan kelembaban real-time.
-        </p>
-        <div class="mt-3 flex items-center gap-2 text-sm text-primary-600">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
-          <span>Indonesia</span>
-        </div>
-      </div>
-
-      <!-- Location Card 3 -->
-      <div class="card overflow-hidden group">
-        <div class="aspect-video overflow-hidden rounded-xl mb-4">
-          <ImageOptim
-            src="/images/placeholder-locations.svg"
-            alt="Lokasi demonstrasi teknologi irigasi IoT ADOSISTERING"
-            width={600}
-            height={400}
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-        <h3 class="text-heading-sm text-neutral-900 mb-2">Lokasi Uji Coba 3</h3>
-        <p class="text-body-sm text-neutral-600">
-          Demonstrasi dan pelatihan penggunaan teknologi IoT untuk pertanian modern kepada kelompok tani lokal.
-        </p>
-        <div class="mt-3 flex items-center gap-2 text-sm text-primary-600">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
-          <span>Indonesia</span>
-        </div>
-      </div>
-    </div>
   </div>
 </section>

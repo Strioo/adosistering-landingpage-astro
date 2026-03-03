@@ -1,166 +1,189 @@
 ---
 /**
- * FeaturesGrid.astro — "Sistem Irigasi dalam Satu Platform Terintegrasi"
- * Design: Tabbed interface showing 4 features:
- *   1. Energi Panel Surya
- *   2. Kontrol Irigasi
- *   3. Sensor Kelembaban Tanah
- *   4. Riwayat Irigasi
- * Each tab shows a screenshot/image + description
+ * FeaturesGrid.astro — "Fitur" section
+ * Design: Alternating layout (image ↔ text) for 4 features,
+ * each with 2 sub-feature mini-cards with icons.
+ * Matches the wooden-sign title style of other sections.
  */
-import ImageOptim from "./ImageOptim.astro";
+import { Image } from "astro:assets";
+import featureImg1 from "@/assets/images/feature-image-1.png";
+import featureImg2 from "@/assets/images/feature-image-2.png";
+import featureImg3 from "@/assets/images/feature-image-3.png";
+import featureImg4 from "@/assets/images/feature-image-4.png";
+import featureTitle from "@/assets/images/feature-title.png";
 
 const features = [
   {
-    id: "energi",
-    label: "Energi Terbarukan",
     title: "Energi Terbarukan Berbasis Panel Surya",
     description:
-      "Sistem ADOSISTERING menggunakan panel surya sebagai sumber energi utama. Hemat biaya operasional, ramah lingkungan, dan dapat beroperasi di daerah tanpa jaringan listrik.",
-    image: "/images/placeholder-solar.svg",
+      "ADOSISTERING memanfaatkan panel surya sebagai sumber energi utama untuk mendukung operasional sistem irigasi. Dengan pendekatan ini, sistem dapat berjalan secara mandiri, efisien, dan ramah lingkungan, khususnya pada wilayah lahan yang terbatas akses listrik.",
+    image: featureImg1,
     alt: "Panel surya sebagai sumber energi sistem irigasi pintar ADOSISTERING",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+    subs: [
+      {
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+        title: "Panel Surya",
+        description:
+          "Sumber daya listrik dihasilkan melalui energi matahari untuk mendukung operasional sistem.",
+      },
+      {
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+        title: "Efisiensi Biaya Operasional",
+        description:
+          "Mengurangi ketergantungan pada listrik konvensional sehingga biaya operasional jangka panjang menjadi lebih hemat.",
+      },
+    ],
   },
   {
-    id: "kontrol",
-    label: "Kontrol Irigasi",
     title: "Kontrol Irigasi",
     description:
-      "Kontrol pompa air dan katup irigasi dari mana saja melalui dashboard web. Atur jadwal otomatis, mode manual, atau biarkan sistem memutuskan berdasarkan data sensor.",
-    image: "/images/placeholder-control.svg",
+      "pengelolaan sistem irigasi secara real-time melalui integrasi sensor dan kontrol pompa berbasis IoT.",
+    image: featureImg2,
     alt: "Dashboard kontrol irigasi ADOSISTERING untuk mengatur pompa air secara remote",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg>`,
+    subs: [
+      {
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+        title: "Data Realtime",
+        description:
+          "Menampilkan kondisi lahan secara langsung untuk mendukung keputusan irigasi.",
+      },
+      {
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>`,
+        title: "Data cloud",
+        description:
+          "Seluruh data tersimpan dan dapat diakses melalui dashboard monitoring.",
+      },
+    ],
   },
   {
-    id: "sensor",
-    label: "Sensor Tanah",
     title: "Sensor Kelembaban Tanah",
     description:
-      "Sensor IoT memonitor kelembaban tanah, suhu, dan pH secara real-time. Data ditampilkan dalam bentuk grafik dan gauge yang mudah dipahami untuk pengambilan keputusan cepat.",
-    image: "/images/placeholder-sensor.svg",
-    alt: "Tampilan data sensor kelembaban tanah dan suhu pada dashboard ADOSISTERING",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>`,
+      "Sistem membaca tingkat kelembaban tanah secara berkala untuk menentukan kebutuhan irigasi yang optimal. Data ini menjadi dasar dalam mengatur ambang batas penyiraman agar penggunaan air lebih efisien.",
+    image: featureImg3,
+    alt: "Tampilan data sensor kelembaban tanah pada dashboard ADOSISTERING",
+    subs: [
+      {
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
+        title: "Database",
+        description:
+          "Data kelembaban tersimpan secara sistematis untuk analisis historis dan evaluasi kondisi lahan.",
+      },
+      {
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+        title: "Pembantu Keputusan",
+        description:
+          "Sistem membantu menentukan waktu penyiraman yang tepat agar penggunaan air lebih efisien.",
+      },
+    ],
   },
   {
-    id: "riwayat",
-    label: "Riwayat Irigasi",
     title: "Riwayat Irigasi",
     description:
-      "Lihat riwayat lengkap aktivitas irigasi, penggunaan air, dan data sensor dalam format tabel dan grafik. Analisis tren untuk mengoptimalkan strategi irigasi.",
-    image: "/images/placeholder-history.svg",
-    alt: "Tabel dan grafik riwayat irigasi pada platform ADOSISTERING",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+      "ADOSISTERING menyediakan rekam jejak aktivitas irigasi yang mencakup kelembaban tanah, debit aliran, volume air, serta status penyiraman untuk setiap blok lahan.",
+    image: featureImg4,
+    alt: "Tabel riwayat irigasi pada platform ADOSISTERING",
+    subs: [
+      {
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+        title: "Catat Otomatis",
+        description:
+          "Seluruh aktivitas irigasi tercatat secara otomatis untuk memastikan transparansi dan akurasi data.",
+      },
+      {
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`,
+        title: "Filter Riwayat",
+        description:
+          "Pengguna dapat menyaring data berdasarkan waktu atau blok lahan untuk menganalisis efektivitas sistem irigasi.",
+      },
+    ],
   },
 ];
 ---
 
 <section
   id="fitur"
-  class="section-padding bg-white"
+  class="bg-white py-16 md:py-24 lg:py-32"
   aria-labelledby="fitur-heading"
 >
-  <div class="container-wide mx-auto">
-    <!-- Section Header -->
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="7" height="7" />
-          <rect x="14" y="3" width="7" height="7" />
-          <rect x="14" y="14" width="7" height="7" />
-          <rect x="3" y="14" width="7" height="7" />
-        </svg>
-        Fitur
-      </div>
-      <h2 id="fitur-heading" class="section-title">
-        Sistem Irigasi dalam Satu <span class="gradient-text">Platform Terintegrasi</span>
-      </h2>
-      <p class="section-subtitle">
-        Semua yang Anda butuhkan untuk mengelola irigasi secara cerdas — dalam satu dashboard yang mudah digunakan.
-      </p>
+  <div class="container-full px-4 sm:px-6 lg:px-12 xl:px-16">
+
+    <!-- Title image — centered -->
+    <div class="flex justify-center mb-16 md:mb-20">
+      <Image
+        src={featureTitle}
+        alt="Fitur"
+        width={480}
+        quality={90}
+        class="h-auto w-auto max-w-[240px] sm:max-w-[340px] md:max-w-[420px] lg:max-w-[480px]"
+        loading="lazy"
+      />
     </div>
 
-    <!-- Feature Tabs (CSS-only, no JS hydration) -->
-    <div class="feature-tabs">
-      <!-- Tab Buttons -->
-      <div class="flex flex-wrap justify-center gap-2 mb-10" role="tablist" aria-label="Fitur platform">
-        {features.map((feature, index) => (
-          <label
+    <!-- Features list — alternating layout -->
+    <div class="space-y-20 md:space-y-28 lg:space-y-36">
+      {features.map((feature, index) => {
+        const imageFirst = index % 2 === 0;
+        return (
+          <div
             class:list={[
-              "cursor-pointer inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-200",
-              "has-[:checked]:bg-primary-600 has-[:checked]:text-white has-[:checked]:shadow-lg",
-              "bg-neutral-100 text-neutral-600 hover:bg-neutral-200",
+              "grid md:grid-cols-[5fr_6fr] gap-10 md:gap-14 lg:gap-20 items-start",
+              !imageFirst && "md:grid-cols-[6fr_5fr]",
             ]}
           >
-            <input
-              type="radio"
-              name="feature-tab"
-              value={feature.id}
-              checked={index === 0}
-              class="sr-only"
-              role="tab"
-              aria-controls={`panel-${feature.id}`}
-            />
-            <span set:html={feature.icon} />
-            <span class="hidden sm:inline">{feature.label}</span>
-          </label>
-        ))}
-      </div>
-
-      <!-- Tab Panels -->
-      {features.map((feature, index) => (
-        <div
-          id={`panel-${feature.id}`}
-          class:list={[
-            "feature-panel grid md:grid-cols-2 gap-8 lg:gap-16 items-center",
-            index !== 0 && "hidden",
-          ]}
-          data-tab={feature.id}
-          role="tabpanel"
-          aria-labelledby={`tab-${feature.id}`}
-        >
-          <div class="space-y-6">
-            <h3 class="text-heading-lg text-neutral-900">{feature.title}</h3>
-            <p class="text-body-md text-neutral-600 leading-relaxed">
-              {feature.description}
-            </p>
-            <a
-              href="#hubungi-kami"
-              class="btn-primary text-sm"
+            {/* ── Image side ── */}
+            <div
+              class:list={[
+                "rounded-2xl overflow-hidden shadow-lg",
+                !imageFirst && "md:order-2",
+              ]}
             >
-              Pelajari Lebih Lanjut
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
-          <div>
-            <ImageOptim
-              src={feature.image}
-              alt={feature.alt}
-              width={800}
-              height={600}
-              class="w-full h-auto rounded-2xl shadow-card"
-            />
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
+              <Image
+                src={feature.image}
+                alt={feature.alt}
+                width={700}
+                quality={85}
+                sizes="(max-width: 768px) 95vw, (max-width: 1280px) 50vw, 700px"
+                class="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
 
-  <!-- Inline script for tab switching (minimal JS, no framework) -->
-  <script is:inline>
-    document.addEventListener("DOMContentLoaded", function () {
-      const radios = document.querySelectorAll('input[name="feature-tab"]');
-      const panels = document.querySelectorAll(".feature-panel");
-      radios.forEach(function (radio) {
-        radio.addEventListener("change", function () {
-          panels.forEach(function (panel) {
-            panel.classList.add("hidden");
-          });
-          var target = document.querySelector('[data-tab="' + radio.value + '"]');
-          if (target) target.classList.remove("hidden");
-        });
-      });
-    });
-  </script>
+            {/* ── Text side ── */}
+            <div
+              class:list={[
+                "flex flex-col justify-center",
+                !imageFirst && "md:order-1",
+              ]}
+            >
+              <h3 class="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-primary-600 leading-tight mb-6">
+                {feature.title}
+              </h3>
+              <p class="text-base sm:text-lg text-neutral-500 leading-relaxed mb-10">
+                {feature.description}
+              </p>
+
+              {/* Sub-feature mini-cards */}
+              <div class="grid grid-cols-2 gap-6 sm:gap-8">
+                {feature.subs.map((sub) => (
+                  <div>
+                    {/* Icon */}
+                    <div class="w-12 h-12 rounded-xl bg-primary-100 text-primary-600 flex items-center justify-center mb-4">
+                      <span set:html={sub.icon} />
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-neutral-900 mb-2">
+                      {sub.title}
+                    </h4>
+                    <p class="text-sm sm:text-base text-neutral-500 leading-relaxed">
+                      {sub.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
 </section>

@@ -1,6 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "astro/tsconfigs/strict",
+
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -8,6 +9,23 @@
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@content/*": ["src/content/*"]
-    }
-  }
+    },
+
+    "skipLibCheck": true,
+    "types": [],
+    "incremental": true,
+    "noEmit": true
+  },
+
+  "include": [
+    "src",
+    ".astro/types.d.ts"
+  ],
+
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".vscode",
+    "public"
+  ]
 }

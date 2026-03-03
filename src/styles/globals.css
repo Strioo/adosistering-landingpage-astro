@@ -76,6 +76,240 @@
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-800;
   }
+
+  /* ── Form styles ─────────────────────────────────────────────── */
+
+  .form-group {
+    @apply flex flex-col w-full;
+    gap: 6px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4F4F4F;
+    margin-bottom: 0;
+  }
+
+  .form-label .required {
+    @apply text-red-500 ml-0.5;
+  }
+
+  .form-label:has(+ input:disabled),
+  .form-label:has(+ textarea:disabled),
+  .form-label:has(+ select:disabled) {
+    @apply text-gray-400;
+  }
+
+  .form-input {
+    width: 100%;
+    height: 49px;
+    border-radius: 12px;
+    padding: 0 16px;
+    background-color: #ffffff;
+    color: #111827;
+    border: 1px solid #C2C2C2;
+    font-size: 0.9375rem;
+    transition: border-color 0.2s ease;
+    outline: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .form-input::placeholder {
+    color: #9CA3AF;
+  }
+
+  .form-input:hover:not(:focus):not(:disabled) {
+    border-color: #9CA3AF;
+  }
+
+  .form-input:focus {
+    border-color: #3b7410;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .form-input:not(:placeholder-shown) {
+    color: #111827;
+  }
+
+  .form-input:disabled {
+    background-color: #F3F4F6;
+    color: #9CA3AF;
+    border-color: #E5E7EB;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .form-input.is-error {
+    border-color: #E47689;
+  }
+
+  .form-input.is-error:focus {
+    border-color: #E47689;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .form-input.is-error:hover:not(:focus) {
+    border-color: #d95c6f;
+  }
+
+  .form-textarea {
+    height: auto;
+    min-height: 120px;
+    padding: 12px 16px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  .form-select {
+    cursor: pointer;
+    /* Hide native arrow completely across all browsers */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Custom chevron — matches the design's dark gray arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F4F4F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px 16px;
+    padding-right: 44px;
+    /* Ensure text does not bleed under the arrow */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  /* Placeholder option styling — grey like a real placeholder */
+  .form-select:required:invalid,
+  .form-select option[value=""][disabled] {
+    color: #9CA3AF;
+  }
+
+  .form-select option {
+    color: #111827;
+  }
+
+  .form-select:focus {
+    border-color: #3b7410;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .form-hint {
+    font-size: 0.75rem;
+    color: #6B7280;
+    margin-top: 4px;
+  }
+
+  .form-error-msg {
+    font-size: 0.75rem;
+    color: #E47689;
+    margin-top: 4px;
+  }
+
+  /* ── Custom Dropdown ─────────────────────────────────────────── */
+
+  .custom-dropdown {
+    position: relative;
+    width: 100%;
+  }
+
+  .custom-dropdown__trigger {
+    width: 100%;
+    height: 49px;
+    padding: 0 14px 0 16px;
+    background-color: #ffffff;
+    border: 1px solid #C2C2C2;
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    color: #9CA3AF; /* placeholder colour by default */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    outline: none;
+    text-align: left;
+  }
+
+  .custom-dropdown__trigger:hover:not(.is-open) {
+    border-color: #9CA3AF;
+  }
+
+  /* Open state — green border, 2px */
+  .custom-dropdown__trigger.is-open {
+    border-color: #54A610;
+    border-width: 2px;
+    color: #111827;
+  }
+
+  /* When a value is selected — dark text */
+  .custom-dropdown__trigger.has-value {
+    color: #111827;
+  }
+
+  .custom-dropdown__chevron {
+    flex-shrink: 0;
+    color: #4F4F4F;
+    transition: transform 0.2s ease;
+  }
+
+  .custom-dropdown__trigger.is-open .custom-dropdown__chevron {
+    transform: rotate(180deg);
+  }
+
+  .custom-dropdown__list {
+    display: none;
+    position: absolute;
+    z-index: 50;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #C2C2C2;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+    max-height: 240px;
+    overflow-y: auto;
+    padding: 4px 0;
+    list-style: none;
+    margin: 0;
+  }
+
+  .custom-dropdown__list.is-open {
+    display: block;
+  }
+
+  .custom-dropdown__item {
+    padding: 10px 16px;
+    font-size: 0.9375rem;
+    color: #4F4F4F;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .custom-dropdown__item:first-child {
+    border-radius: 12px 12px 0 0;
+  }
+
+  .custom-dropdown__item:last-child {
+    border-radius: 0 0 12px 12px;
+  }
+
+  .custom-dropdown__item:hover {
+    background-color: #f9fafb;
+  }
+
+  .custom-dropdown__item.is-selected {
+    color: #54A610;
+    font-weight: 500;
+  }
 }
 
 @layer utilities {

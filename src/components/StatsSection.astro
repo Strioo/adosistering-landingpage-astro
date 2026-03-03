@@ -6,29 +6,25 @@
 const stats = [
   {
     value: "2023",
-    label: "Tahun Berdiri",
-    description: "Dimulai sejak tahun 2023",
+    description: "Proyek Pertama",
   },
   {
-    value: "70+",
-    label: "Hektar Terjangkau",
-    description: "Luas lahan yang terlayani",
+    value: "70+%",
+    description: "Efisiensi Air",
   },
   {
     value: "3",
-    label: "Lokasi Uji Coba",
-    description: "Titik implementasi lapangan",
+    description: "Pilot Project",
   },
   {
     value: "60+",
-    label: "Pengguna Aktif",
-    description: "Petani yang menggunakan sistem",
+    description: "Adaptasi Petani",
   },
 ];
 ---
 
 <section
-  class="relative py-16 md:py-20 bg-gradient-to-r from-primary-800 via-primary-700 to-primary-800 overflow-hidden"
+  class="relative py-16 md:py-20 bg-primary-500 overflow-hidden"
   aria-label="Statistik pencapaian ADOSISTERING"
 >
   <!-- Background decoration -->
@@ -48,13 +44,10 @@ const stats = [
       {
         stats.map((stat) => (
           <div class="text-center">
-            <div class="text-4xl sm:text-5xl lg:text-display-sm font-extrabold text-white mb-2">
+            <div class="text-5xl sm:text-6xl lg:text-display-lg font-extrabold text-white mb-4">
               {stat.value}
             </div>
-            <div class="text-lg font-semibold text-accent-300 mb-1">
-              {stat.label}
-            </div>
-            <div class="text-sm text-white/60">
+            <div class="text-lg text-white">
               {stat.description}
             </div>
           </div>
