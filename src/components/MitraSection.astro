@@ -1,0 +1,62 @@
+---
+/**
+ * MitraSection.astro — "Mitra Kami"
+ * Design: Wooden-sign title centered, 2 partner logo cards below.
+ */
+import { Image } from "astro:assets";
+import mitraTitle from "@/assets/images/mitra-title.png";
+import telkomLogo from "@/assets/images/telkom-university-logo.png";
+import pertaminaLogo from "@/assets/images/pertamina-logo.png";
+
+const partners = [
+  {
+    logo: telkomLogo,
+    alt: "Telkom University — Mitra ADOSISTERING",
+    name: "Telkom University",
+  },
+  {
+    logo: pertaminaLogo,
+    alt: "Pertamina — Mitra ADOSISTERING",
+    name: "Pertamina",
+  },
+];
+---
+
+<section
+  id="mitra-kami"
+  class="bg-white py-16 md:py-24 lg:py-32"
+  aria-labelledby="mitra-heading"
+>
+  <div class="container-full px-4 sm:px-6 lg:px-12 xl:px-16">
+
+    <!-- Wooden sign title — centered -->
+    <div class="flex justify-center mb-16 md:mb-20">
+      <Image
+        src={mitraTitle}
+        alt="Mitra Kami"
+        id="mitra-heading"
+        width={480}
+        quality={90}
+        class="h-auto w-auto max-w-[220px] sm:max-w-[300px] md:max-w-[380px] lg:max-w-[440px]"
+        loading="lazy"
+      />
+    </div>
+
+    <!-- 2 partner logo cards — centered, not full width -->
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-6 md:gap-8">
+      {partners.map((partner) => (
+        <div class="bg-neutral-100 rounded-2xl flex items-center justify-center p-8 md:p-10 w-full sm:w-64 md:w-72 lg:w-80 h-36 md:h-40">
+          <Image
+            src={partner.logo}
+            alt={partner.alt}
+            width={200}
+            quality={90}
+            class="max-h-14 md:max-h-16 w-auto object-contain"
+            loading="lazy"
+          />
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

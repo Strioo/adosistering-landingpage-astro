@@ -60,41 +60,44 @@ npm run preview
 /
 ├─ src/
 │  ├─ components/
-│  │  ├─ Header.astro          # Sticky navigation bar
-│  │  ├─ Footer.astro          # Footer with social links
-│  │  ├─ Hero.astro            # Hero section with CTA
-│  │  ├─ ProblemsSection.astro # "Masalah Umum Irigasi" cards
-│  │  ├─ HowItWorks.astro      # 3-step solution explanation
-│  │  ├─ FeaturesGrid.astro    # Tabbed platform features
-│  │  ├─ StatsSection.astro    # Achievement counters
-│  │  ├─ UseCases.astro        # Implementation locations
-│  │  ├─ ContactForm.astro     # Contact form (Formspree)
-│  │  ├─ Testimonial.astro     # Director quote
-│  │  ├─ FAQSection.astro      # FAQ accordion
-│  │  ├─ CTA.astro             # Call-to-action banner
-│  │  ├─ SeoHead.astro         # SEO meta, OG, JSON-LD
-│  │  └─ ImageOptim.astro      # Optimized <picture> helper
+│  │  ├─ Header.astro              # Sticky navigation bar
+│  │  ├─ Footer.astro              # Footer with newsletter (mailto fallback)
+│  │  ├─ Hero.astro                # Hero section with CTA
+│  │  ├─ ProblemsSection.astro     # "Masalah Umum Irigasi" cards
+│  │  ├─ SolutionSection.astro     # 3-step solution explanation
+│  │  ├─ FeaturesGrid.astro        # Tabbed platform features
+│  │  ├─ FieldInsightSection.astro # Field insight & data section
+│  │  ├─ StatsSection.astro        # Achievement counters
+│  │  ├─ UseCases.astro            # Implementation locations
+│  │  ├─ PreviewSection.astro      # Product preview
+│  │  ├─ DirectorViewSection.astro # Director quote
+│  │  ├─ ColabSection.astro        # Collaboration section
+│  │  ├─ MitraSection.astro        # Partners (Telkom U + Pertamina)
+│  │  ├─ ContactForm.astro         # Contact form (Formspree)
+│  │  ├─ CTA.astro                 # Call-to-action banner
+│  │  └─ SeoHead.astro             # SEO meta, OG, JSON-LD
 │  ├─ layouts/
-│  │  └─ BaseLayout.astro      # HTML shell, fonts, skip-link
+│  │  └─ BaseLayout.astro          # HTML shell, fonts, skip-link
 │  ├─ pages/
-│  │  └─ index.astro           # Main landing page
-│  ├─ content/
-│  │  ├─ faq.mdx               # FAQ content source
-│  │  └─ product-description.mdx
+│  │  ├─ index.astro               # Main landing page
+│  │  └─ 404.astro                 # Branded 404 fallback
+│  ├─ assets/
+│  │  ├─ images/                   # Real product/feature images (PNG/SVG)
+│  │  └─ logos/                    # Logo SVGs (logo, logo-text, logo-white)
 │  └─ styles/
-│     └─ globals.css           # Tailwind directives + custom classes
+│     └─ globals.css               # Tailwind directives + custom classes
 ├─ public/
-│  ├─ images/                  # Placeholder images (replace!)
-│  ├─ logos/                   # Logo SVG placeholders
-│  ├─ favicons/                # Favicon + webmanifest
-│  └─ robots.txt               # Search engine directives
-├─ astro.config.mjs            # Astro + integrations config
-├─ tailwind.config.cjs         # Tailwind theme & design tokens
-├─ vercel.json                 # Vercel deployment config
-├─ lighthouserc.json           # Lighthouse CI config
-├─ design-tokens.md            # Color, typography, spacing reference
-├─ .env.example                # Environment variables template
-└─ README.md                   # This file
+│  ├─ favicons/                    # Favicon + webmanifest
+│  ├─ logos/                       # Public logo for JSON-LD
+│  ├─ og-image.jpg                 # Open Graph share image
+│  └─ robots.txt                   # Search engine directives
+├─ astro.config.mjs                # Astro + integrations config
+├─ tailwind.config.cjs             # Tailwind theme & design tokens
+├─ vercel.json                     # Vercel deployment config (static)
+├─ lighthouserc.json               # Lighthouse CI config
+├─ design-tokens.md                # Color, typography, spacing reference
+├─ .env.example                    # Environment variables template
+└─ README.md                       # This file
 ```
 
 ---
@@ -140,11 +143,12 @@ Edit props passed to `<SeoHead>` in `src/layouts/BaseLayout.astro` or directly i
 ### JSON-LD Structured Data (auto-generated)
 
 - ✅ **Organization** — Company info, logo, contact point
-- ✅ **Product** — IoT Smart Irrigation System details
-- ✅ **FAQPage** — From FAQ section data
-- ✅ **BreadcrumbList** — Root → Product page
+- ✅ **Service** — IoT Smart Irrigation System (service-type schema)
+- ✅ **FAQPage** — Built into `SeoHead.astro`
+- ✅ **BreadcrumbList** — Root → Beranda
+- ✅ **WebPage** — Inline language metadata
 
-To update, edit the schema objects in `src/components/SeoHead.astro` and `src/components/FAQSection.astro`.
+To update, edit the schema objects in `src/components/SeoHead.astro`.
 
 ### Sitemap & Robots
 
@@ -162,33 +166,21 @@ To update, edit the schema objects in `src/components/SeoHead.astro` and `src/co
 
 ---
 
-## 🖼️ Replacing Placeholder Images
+## 🖼️ Image Assets
 
-All placeholder images are SVGs in `public/images/` and `public/logos/`. Replace them with actual assets:
+All real product/feature images live in `src/assets/images/` and are imported via Astro's `<Image>` component for automatic optimization (WebP/AVIF, responsive `srcset`, lazy loading).
 
-| Placeholder File                | Recommended Size  | Usage                        |
-| ------------------------------- | ----------------- | ---------------------------- |
-| `placeholder-hero.svg`          | 1920 × 1080 px   | Hero background              |
-| `placeholder-dashboard.svg`     | 800 × 600 px     | Hero app screenshot          |
-| `placeholder-feature-{1-4}.svg` | 600 × 400 px     | Problem section images       |
-| `placeholder-solar.svg`         | 800 × 600 px     | Solar panel feature          |
-| `placeholder-control.svg`       | 800 × 600 px     | Irrigation control feature   |
-| `placeholder-sensor.svg`        | 800 × 600 px     | Sensor dashboard feature     |
-| `placeholder-history.svg`       | 800 × 600 px     | History feature              |
-| `placeholder-locations.svg`     | 600 × 400 px     | Location cards               |
-| `placeholder-director.svg`      | 200 × 200 px     | Director portrait            |
-| `placeholder-team.svg`          | 400 × 400 px     | Team photo                   |
-| `logo-placeholder.svg`          | 180 × 40 px      | Header logo (dark bg)        |
-| `logo-white.svg`                | 180 × 40 px      | Footer logo (dark bg)        |
-| `favicon.svg`                   | 32 × 32 px       | Browser favicon              |
+To replace or add an image:
 
-**Steps to replace:**
+1. Drop the new asset (PNG/JPG/WebP/SVG) into `src/assets/images/`
+2. Import it in the relevant component:
+   ```astro
+   import myImage from "@/assets/images/my-image.png";
+   ```
+3. Use `<Image src={myImage} alt="..." width={...} />`
+4. Astro will emit hashed, optimized variants under `/_astro/`
 
-1. Export your assets as WebP/AVIF + JPEG fallback
-2. Name them semantically (e.g., `hero-dashboard.webp`)
-3. Update the `src` paths in the corresponding component
-4. For responsive images, generate multiple sizes: 320, 640, 960, 1280, 1920 px
-5. Update `ImageOptim.astro` srcset paths
+The `og-image.jpg` for social sharing lives in `public/` and is referenced as a string path in `SeoHead.astro`.
 
 ---
 
@@ -268,13 +260,13 @@ export default async function handler(req, res) {
 
 ---
 
-## 📝 Assumptions & Notes
+## 📝 Notes
 
-- **Font choice:** Plus Jakarta Sans (closest match to the design's modern sans-serif)
-- **Color palette:** Derived from the green brand palette visible in the design
+- **Fonts:** Outfit (body) + Oswald (display/brand) loaded from Google Fonts with `font-display: swap`
+- **Brand color:** Primary green `#54A610` (see `tailwind.config.cjs` and `design-tokens.md`)
 - **Content language:** Indonesian (Bahasa Indonesia) — all copy in `id`
-- **Contact info:** Placeholder phone/email/address — update before production
-- **Director photo:** Placeholder SVG for Suharto, S.Pd., M.Kom — replace with actual photo
+- **Output:** Pure static (no SSR adapter) — deployed via Vercel static hosting + headers in `vercel.json`
+- **Newsletter form:** Uses `mailto:` fallback (no backend); switch to Formspree/Mailchimp if you need real subscriptions
 
 ---
 

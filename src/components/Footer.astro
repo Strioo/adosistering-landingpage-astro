@@ -1,114 +1,222 @@
 ---
 /**
- * Footer.astro — "Mari Terhubung & Berkolaborasi" footer section
- * Design: Dark footer with logo, social links, navigation, and copyright
+ * Footer.astro — Full footer with newsletter, nav, contact info
+ * Design: Very dark green bg, two-part layout matching the design comp.
  */
-const currentYear = new Date().getFullYear();
+import { Image } from "astro:assets";
+import logoIcon from "@/assets/logos/logo.svg";
 
-const socialLinks = [
-  {
-    label: "Instagram",
-    href: "https://instagram.com/adosistering",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
-  },
-  {
-    label: "LinkedIn",
-    href: "https://linkedin.com/company/adosistering",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`,
-  },
-  {
-    label: "YouTube",
-    href: "https://youtube.com/@adosistering",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.13C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>`,
-  },
-];
+const currentYear = new Date().getFullYear();
 
 const footerLinks = [
   { label: "Beranda", href: "#beranda" },
-  { label: "Masalah", href: "#masalah" },
-  { label: "Solusi", href: "#solusi" },
   { label: "Fitur", href: "#fitur" },
-  { label: "Lokasi", href: "#lokasi" },
+  { label: "Implementasi", href: "#implementasi" },
   { label: "Hubungi Kami", href: "#hubungi-kami" },
+  { label: "Mitra Kami", href: "#mitra-kami" },
 ];
 ---
 
 <footer
-  class="bg-primary-900 text-white"
+  class="bg-[#1a2e1a] text-white"
   role="contentinfo"
 >
-  <!-- Top section: CTA banner -->
-  <div class="bg-primary-800 border-b border-primary-700/50">
-    <div class="container-wide mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
-      <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">
-        Mari Terhubung & Berkolaborasi
+  <!-- ── TOP: Heading + newsletter ───────────────────────────── -->
+  <div class="container-full px-4 sm:px-6 lg:px-12 xl:px-16 pt-16 md:pt-20 lg:pt-24 pb-14 md:pb-16">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+
+      <!-- Left — large heading -->
+      <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-tight">
+        Mari Terhubung &amp;<br />Berkolaborasi
       </h2>
-      <p class="text-white/70 max-w-xl mx-auto mb-6 text-sm md:text-base">
-        Ikuti perkembangan terbaru teknologi irigasi pintar dan dapatkan informasi eksklusif dari kami.
-      </p>
-      <div class="flex justify-center gap-3">
-        {
-          socialLinks.map((social) => (
-            <a
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="w-11 h-11 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full transition-colors duration-200"
-              aria-label={`Ikuti kami di ${social.label}`}
-            >
-              <span set:html={social.icon} />
-            </a>
-          ))
-        }
+
+      <!-- Right — newsletter -->
+      <div class="lg:text-right">
+        <p class="text-sm sm:text-base font-semibold text-white mb-4">
+          Dapatkan Informasi Terkini
+        </p>
+        <form
+          id="newsletter-form"
+          class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
+          novalidate
+        >
+          <input
+            type="email"
+            name="newsletter_email"
+            id="newsletter-email"
+            required
+            placeholder="Masukkan email"
+            autocomplete="email"
+            aria-label="Alamat email untuk berlangganan informasi"
+            class="flex-1 h-12 px-6 bg-[#2a3f2a] border border-[#3a5a3a] rounded-full text-white text-sm placeholder:text-white/50 focus:outline-none focus:border-primary-500 transition-colors"
+          />
+          <button
+            type="submit"
+            class="h-12 px-8 bg-amber-400 hover:bg-amber-300 text-neutral-900 font-semibold text-sm rounded-full transition-colors duration-200 whitespace-nowrap"
+          >
+            Kirim Email
+          </button>
+        </form>
       </div>
+
     </div>
   </div>
 
-  <!-- Bottom section: nav + copyright -->
-  <div class="container-wide mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-2" aria-label="ADOSISTERING — Kembali ke beranda">
-        <!-- TODO: replace with actual white logo -->
-        <img
-          src="/logos/logo-white.svg"
-          alt="Logo ADOSISTERING"
-          width="140"
-          height="32"
-          class="h-7 w-auto"
-          loading="lazy"
-        />
-      </a>
+  <!-- Separator line -->
+  <div class="container-full px-4 sm:px-6 lg:px-12 xl:px-16">
+    <div class="border-t border-white/10"></div>
+  </div>
 
-      <!-- Footer nav -->
-      <nav aria-label="Footer navigation">
-        <ul class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-          {
-            footerLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="text-white/70 hover:text-white transition-colors duration-200"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-    </div>
+  <!-- ── BOTTOM: Logo + Nav + Contact ────────────────────────── -->
+  <div class="container-full px-4 sm:px-6 lg:px-12 xl:px-16 pt-10 md:pt-14 pb-10 md:pb-16">
+    <div class="grid md:grid-cols-2 lg:grid-cols-[2fr_1fr_2fr] gap-10 lg:gap-12">
 
-    <!-- Divider -->
-    <div class="border-t border-primary-800 mt-6 pt-6">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
-        <p>&copy; {currentYear} ADOSISTERING. Seluruh hak cipta dilindungi undang-undang.</p>
-        <p>
-          Dibuat dengan
-          <span aria-label="cinta" class="text-red-400">♥</span>
-          untuk pertanian Indonesia
+      <!-- Column 1 — Logo + description + social + copyright -->
+      <div>
+        <!-- Logo: icon + Oswald brand name, wrapped in white pill -->
+        <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-6">
+          <Image
+            src={logoIcon}
+            alt=""
+            aria-hidden="true"
+            width={32}
+            height={49}
+            class="h-9 w-auto"
+            loading="lazy"
+          />
+          <span
+            class="text-neutral-900 font-semibold leading-none"
+            style="font-family: 'Oswald', sans-serif; font-size: 1.15rem; letter-spacing: 0.05em;"
+          >
+            ADOSISTERING
+          </span>
+        </div>
+
+        <p class="text-sm text-white/60 leading-relaxed mb-6 max-w-md">
+          Adosistering adalah sistem irigasi cerdas berbasis IoT yang dirancang untuk membantu pengelolaan air secara efisien, akurat, dan berkelanjutan melalui pendekatan berbasis data.
+        </p>
+
+        <!-- Social icons -->
+        <div class="flex items-center gap-3 mb-8">
+          <!-- Instagram -->
+          <a
+            href="https://instagram.com/adosistering"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+            aria-label="Instagram"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <!-- YouTube -->
+          <a
+            href="https://youtube.com/@adosistering"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+            aria-label="YouTube"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.13C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </a>
+          <!-- TikTok -->
+          <a
+            href="https://tiktok.com/@adosistering"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+            aria-label="TikTok"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.69a8.24 8.24 0 0 0 4.76 1.5v-3.5a4.85 4.85 0 0 1-1-.11z"/></svg>
+          </a>
+        </div>
+
+        <p class="text-xs text-white/40">
+          &copy; {currentYear} Adosistering. All Right Reserved
         </p>
       </div>
+
+      <!-- Column 2 — Tentang Kami links -->
+      <div>
+        <h3 class="text-base font-bold text-white mb-5">Tentang Kami</h3>
+        <ul class="space-y-3">
+          {footerLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm text-white/60 hover:text-white transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Column 3 — Contact info -->
+      <div class="space-y-6">
+        <!-- Telepon -->
+        <div class="flex items-start gap-3">
+          <div class="mt-0.5 shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-amber-400 mb-0.5">Telepon</p>
+            <p class="text-sm text-white/60">+62 812-3994-2119</p>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="flex items-start gap-3">
+          <div class="mt-0.5 shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-amber-400 mb-0.5">Email</p>
+            <p class="text-sm text-white/60">adosisteringteam@gmail.com</p>
+          </div>
+        </div>
+
+        <!-- Alamat -->
+        <div class="flex items-start gap-3">
+          <div class="mt-0.5 shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-amber-400 mb-0.5">Alamat</p>
+            <p class="text-sm text-white/60 leading-relaxed">
+              Jl. DI Panjaitan No.128, Karangreja, Purwokerto Kidul, Kec. Purwokerto Sel., Kabupaten Banyumas, Jawa Tengah 53147
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </footer>
+
+<script is:inline>
+  // Newsletter form: redirect to email client with prefilled subject (no backend required)
+  document.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("newsletter-form");
+    if (!form) return;
+    var input = document.getElementById("newsletter-email");
+    if (!input) return;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var value = (input.value || "").trim();
+      if (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        input.focus();
+        return;
+      }
+      var subject = encodeURIComponent("Berlangganan informasi ADOSISTERING");
+      var body = encodeURIComponent(
+        "Halo tim ADOSISTERING,\n\n" +
+          "Saya ingin berlangganan informasi terkini.\n" +
+          "Email saya: " + value + "\n\nTerima kasih."
+      );
+      window.location.href =
+        "mailto:adosisteringteam@gmail.com?subject=" + subject + "&body=" + body;
+    });
+  });
+</script>

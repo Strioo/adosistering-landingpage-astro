@@ -3,6 +3,10 @@
  * ContactForm.astro — "Hubungi Kami" contact section
  * Design: Two-column — form left, image right.
  * Below: 3 contact-info cards with icons.
+ *
+ * Submission strategy: frontend-only via `mailto:` link.
+ * On submit, the user's default mail client opens with subject + body
+ * pre-filled, addressed to RECIPIENT_EMAIL. No backend, no API keys.
  */
 import { Image } from "astro:assets";
 import contactFeature from "@/assets/images/contact-feature.png";
@@ -10,9 +14,7 @@ import iconTelephone from "@/assets/images/telephone.svg";
 import iconService from "@/assets/images/service.svg";
 import iconMessage from "@/assets/images/message.svg";
 
-const formEndpoint =
-  import.meta.env.PUBLIC_FORMSPREE_ENDPOINT ||
-  "https://formspree.io/f/your-form-id";
+const RECIPIENT_EMAIL = "adosisteringteam@gmail.com";
 
 const contactCards = [
   {
@@ -53,11 +55,10 @@ const contactCards = [
         </h2>
 
         <form
-          action={formEndpoint}
-          method="POST"
           id="contact-form"
           class="space-y-6"
           novalidate
+          data-recipient={RECIPIENT_EMAIL}
         >
           <!-- Row: Nama + Email -->
           <div class="grid sm:grid-cols-2 gap-6">
@@ -169,10 +170,11 @@ const contactCards = [
           src={contactFeature}
           alt="Tim ADOSISTERING siap membantu konsultasi sistem irigasi cerdas"
           width={600}
-          quality={85}
+          quality={75}
           sizes="(max-width: 768px) 90vw, (max-width: 1280px) 45vw, 600px"
           class="w-full max-w-[520px] lg:max-w-[580px] h-auto"
           loading="lazy"
+          decoding="async"
         />
       </div>
     </div>
@@ -208,25 +210,60 @@ const contactCards = [
 
   </div>
 
-  <!-- Progressive enhancement: client-side validation -->
+  <!-- Frontend-only submission via mailto: -->
   <script is:inline>
     document.addEventListener("DOMContentLoaded", function () {
       var form = document.getElementById("contact-form");
       var status = document.getElementById("form-status");
       if (!form || !status) return;
 
+      var recipient = form.dataset.recipient || "";
+
+      function setFieldError(field, hasError) {
+        if (!field) return;
+        if (hasError) {
+          field.classList.add("is-error");
+          field.setAttribute("aria-invalid", "true");
+        } else {
+          field.classList.remove("is-error");
+          field.removeAttribute("aria-invalid");
+        }
+      }
+
+      function showStatus(message, tone) {
+        var palette = {
+          success: "bg-green-50 text-green-700",
+          error: "bg-red-50 text-red-700",
+          info: "bg-yellow-50 text-yellow-800",
+        };
+        status.textContent = message;
+        status.className =
+          "text-sm text-center py-3 rounded-lg " + (palette[tone] || palette.info);
+        status.classList.remove("hidden");
+      }
+
       form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
         var nama = form.querySelector("#nama");
         var email = form.querySelector("#email");
+        var telepon = form.querySelector("#telepon");
+        var tipe = form.querySelector("#tipe-pengguna");
         var pesan = form.querySelector("#pesan");
-        var valid = true;
+        var honeypot = form.querySelector('[name="_gotcha"]');
 
+        // Honeypot — silent reject
+        if (honeypot && honeypot.value) {
+          return;
+        }
+
+        var valid = true;
         [nama, email, pesan].forEach(function (field) {
           if (field && !field.value.trim()) {
-            field.classList.add("is-error");
+            setFieldError(field, true);
             valid = false;
-          } else if (field) {
-            field.classList.remove("is-error");
+          } else {
+            setFieldError(field, false);
           }
         });
 
@@ -235,17 +272,89 @@ const contactCards = [
           email.value &&
           !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)
         ) {
-          email.classList.add("is-error");
+          setFieldError(email, true);
           valid = false;
         }
 
         if (!valid) {
-          e.preventDefault();
-          status.textContent = "Mohon lengkapi semua field yang wajib diisi.";
-          status.className =
-            "text-sm text-center py-3 rounded-lg bg-red-50 text-red-700";
+          showStatus("Mohon lengkapi semua field yang wajib diisi.", "error");
           return;
         }
+
+        if (!recipient) {
+          showStatus(
+            "Alamat tujuan email belum diatur. Silakan hubungi kami melalui WhatsApp.",
+            "info"
+          );
+          return;
+        }
+
+        // Build email body
+        var namaVal = nama.value.trim();
+        var emailVal = email.value.trim();
+        var teleponVal = telepon ? telepon.value.trim() : "";
+        var tipeVal = tipe ? tipe.value.trim() : "";
+        var pesanVal = pesan.value.trim();
+
+        var subject = "Pesan dari " + namaVal + " via website ADOSISTERING";
+        var bodyLines = [
+          "Halo Tim ADOSISTERING,",
+          "",
+          "Saya menghubungi Anda melalui form di website. Berikut detail saya:",
+          "",
+          "Nama          : " + namaVal,
+          "Email         : " + emailVal,
+          "Telepon / WA  : " + (teleponVal || "-"),
+          "Tipe Pengguna : " + (tipeVal || "-"),
+          "",
+          "Pesan:",
+          pesanVal,
+          "",
+          "Terima kasih.",
+        ];
+        var body = bodyLines.join("\r\n");
+
+        var mailtoUrl =
+          "mailto:" +
+          encodeURIComponent(recipient) +
+          "?subject=" +
+          encodeURIComponent(subject) +
+          "&body=" +
+          encodeURIComponent(body);
+
+        // Open user's mail client
+        window.location.href = mailtoUrl;
+
+        showStatus(
+          "Membuka aplikasi email Anda. Silakan tekan kirim untuk menyelesaikan pengiriman.",
+          "success"
+        );
+
+        // Reset form after a short delay so the mail client has time to open
+        setTimeout(function () {
+          form.reset();
+          // Reset custom dropdown label
+          var trigger = document.getElementById("dropdown-tipe-trigger");
+          var label = trigger
+            ? trigger.querySelector(".custom-dropdown__label")
+            : null;
+          if (trigger && label) {
+            trigger.classList.remove("has-value");
+            label.textContent =
+              label.dataset.placeholder || "Pilih tipe pengguna";
+          }
+        }, 800);
+      });
+
+      // Clear aria-invalid on user input
+      ["nama", "email", "pesan"].forEach(function (id) {
+        var field = form.querySelector("#" + id);
+        if (!field) return;
+        field.addEventListener("input", function () {
+          if (field.classList.contains("is-error")) {
+            setFieldError(field, false);
+          }
+        });
       });
     });
   </script>
@@ -261,7 +370,6 @@ const contactCards = [
       var label    = dropdown.querySelector(".custom-dropdown__label");
       var hidden   = document.getElementById("tipe-pengguna");
       var items    = dropdown.querySelectorAll(".custom-dropdown__item");
-      var placeholder = label.dataset.placeholder || "Pilih tipe pengguna";
 
       function open() {
         trigger.classList.add("is-open");

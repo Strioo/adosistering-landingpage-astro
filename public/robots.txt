@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
+# Search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://adosistering.id/sitemap-index.xml

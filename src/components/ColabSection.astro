@@ -1,0 +1,50 @@
+---
+/**
+ * ColabSection.astro — "Bersama Mewujudkan Pertanian..."
+ * Design: Full-width CTA banner with background image,
+ * dark blur overlay, centered heading + subtitle + button.
+ */
+import { Image } from "astro:assets";
+import colabBg from "@/assets/images/colab-bg.png";
+---
+
+<section
+  class="relative overflow-hidden min-h-[540px] md:min-h-[600px] lg:min-h-[770px] flex items-center justify-center"
+  aria-labelledby="colab-heading"
+>
+  <!-- Background image -->
+  <Image
+    src={colabBg}
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover"
+    quality={70}
+    widths={[480, 768, 1280, 1920]}
+    sizes="100vw"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <!-- Dark blur overlay — full section -->
+  <div class="absolute inset-0 bg-black/55 backdrop-blur-[2px]" aria-hidden="true"></div>
+
+  <!-- Content — centered -->
+  <div class="relative z-10 container-full px-4 sm:px-6 lg:px-12 xl:px-16 py-16 md:py-20 lg:py-24 text-center">
+    <h2
+      id="colab-heading"
+      class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight max-w-4xl mx-auto mb-6 md:mb-8"
+    >
+      Bersama Mewujudkan Pertanian yang Lebih Efektif dan Berkelanjutan
+    </h2>
+
+    <p class="text-base sm:text-lg md:text-xl text-white/85 leading-relaxed max-w-2xl mx-auto mb-8 md:mb-10">
+      Mari berkolaborasi untuk masa depan pertanian Indonesia yang lebih efisien dan berdaya saing.
+    </p>
+
+    <a
+      href="#hubungi-kami"
+      class="inline-flex items-center justify-center px-8 py-3.5 bg-white text-neutral-900 font-semibold text-base rounded-full hover:bg-white/80 hover:shadow-lg transition-all duration-200"
+    >
+      Hubungi Kami
+    </a>
+  </div>
+</section>

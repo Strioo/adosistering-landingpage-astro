@@ -16,7 +16,7 @@ const {
   title = "ADOSISTERING — Sistem Irigasi Pintar Berbasis IoT untuk Pertanian Efisien",
   description = "Sistem irigasi otomatis berbasis IoT untuk monitoring irigasi jarak jauh. Smart irrigation Indonesia dengan kontrol pompa air via website. Hemat air, tingkatkan hasil panen.",
   canonical = Astro.url.href,
-  ogImage = "/images/placeholder-hero.svg",
+  ogImage = "/og-image.jpg",
   ogType = "website",
   twitterCard = "summary_large_image",
   publishDate,
@@ -39,39 +39,45 @@ const organizationSchema = {
   description: "Pengembang sistem irigasi pintar berbasis IoT untuk pertanian efisien di Indonesia",
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+62-000-0000-0000",
+    telephone: "+62-812-3994-2119",
     contactType: "customer service",
     areaServed: "ID",
     availableLanguage: "Indonesian",
   },
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Jl. DI Panjaitan No.128, Karangreja, Purwokerto Kidul",
+    addressLocality: "Purwokerto",
+    addressRegion: "Jawa Tengah",
+    postalCode: "53147",
     addressCountry: "ID",
-    addressLocality: "Indonesia",
   },
+  email: "adosisteringteam@gmail.com",
   sameAs: [
     "https://instagram.com/adosistering",
-    "https://linkedin.com/company/adosistering",
+    "https://youtube.com/@adosistering",
+    "https://tiktok.com/@adosistering",
   ],
 };
 
 const productSchema = {
   "@context": "https://schema.org",
-  "@type": "Product",
+  "@type": "Service",
   name: "IoT Smart Irrigation System — ADOSISTERING",
-  description: "Sistem irigasi otomatis berbasis IoT dengan monitoring jarak jauh, sensor kelembaban tanah, kontrol pompa air via website, dan energi panel surya.",
+  description:
+    "Sistem irigasi otomatis berbasis IoT dengan monitoring jarak jauh, sensor kelembaban tanah, kontrol pompa air via website, dan energi panel surya.",
   image: fullOgImage,
-  brand: {
-    "@type": "Brand",
+  serviceType: "Smart Irrigation",
+  areaServed: {
+    "@type": "Country",
+    name: "Indonesia",
+  },
+  provider: {
+    "@type": "Organization",
     name: "ADOSISTERING",
+    url: siteUrl,
   },
   category: "Agricultural Technology",
-  offers: {
-    "@type": "Offer",
-    availability: "https://schema.org/InStock",
-    priceCurrency: "IDR",
-    url: `${siteUrl}/#hubungi-kami`,
-  },
 };
 
 const breadcrumbSchema = {
@@ -84,16 +90,63 @@ const breadcrumbSchema = {
       name: "Beranda",
       item: siteUrl,
     },
+  ],
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: title,
+  description: description,
+  url: fullCanonical,
+  inLanguage: "id-ID",
+  isPartOf: {
+    "@type": "WebSite",
+    name: "ADOSISTERING",
+    url: siteUrl,
+  },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
     {
-      "@type": "ListItem",
-      position: 2,
-      name: "Sistem Irigasi Pintar IoT",
-      item: `${siteUrl}/`,
+      "@type": "Question",
+      name: "Apa itu ADOSISTERING?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "ADOSISTERING adalah sistem irigasi cerdas berbasis IoT yang dirancang untuk membantu pengelolaan air secara efisien, akurat, dan berkelanjutan melalui pendekatan berbasis data.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bagaimana cara kerja sistem irigasi pintar ADOSISTERING?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sistem bekerja menggunakan sensor kelembaban tanah yang terhubung ke mikrokontroler berbasis IoT. Data sensor dikirim ke cloud dan ditampilkan pada dashboard monitoring, memungkinkan kontrol pompa air secara otomatis maupun manual melalui website.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Apakah ADOSISTERING menggunakan energi terbarukan?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ya, ADOSISTERING memanfaatkan panel surya sebagai sumber energi utama sehingga sistem dapat berjalan mandiri, efisien, dan ramah lingkungan, terutama di wilayah dengan akses listrik terbatas.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bagaimana cara menghubungi tim ADOSISTERING?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Anda dapat menghubungi kami melalui telepon/WhatsApp di +62 812-3994-2119, email di adosisteringteam@gmail.com, atau mengisi formulir kontak di website kami.",
+      },
     },
   ],
 };
 
-const allSchemas = [organizationSchema, productSchema, breadcrumbSchema, ...schema];
+const allSchemas = [organizationSchema, productSchema, breadcrumbSchema, webPageSchema, faqSchema, ...schema];
 
 // Build conditional meta tags in frontmatter to avoid template expression leaking
 const publishDateMeta = publishDate
@@ -109,11 +162,10 @@ const modifiedDateMeta = modifiedDate
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 <link rel="canonical" href={fullCanonical} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
 
 <!-- Language -->
 <meta http-equiv="content-language" content="id" />
-<html lang="id" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />
@@ -121,6 +173,9 @@ const modifiedDateMeta = modifiedDate
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={fullOgImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="ADOSISTERING — Sistem Irigasi Pintar Berbasis IoT" />
 <meta property="og:locale" content="id_ID" />
 <meta property="og:site_name" content="ADOSISTERING" />
 <Fragment set:html={publishDateMeta} />
@@ -132,36 +187,43 @@ const modifiedDateMeta = modifiedDate
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={fullOgImage} />
+<meta name="twitter:image:alt" content="ADOSISTERING — Sistem Irigasi Pintar Berbasis IoT" />
 
 <!-- Additional SEO -->
-<meta name="keywords" content="sistem irigasi otomatis berbasis IoT, monitoring irigasi jarak jauh, smart irrigation Indonesia, kontrol pompa air via website, sensor kelembaban tanah, irigasi pintar, pertanian efisien, IoT pertanian" />
+<meta name="keywords" content="sistem irigasi otomatis berbasis IoT, monitoring irigasi jarak jauh, smart irrigation Indonesia, kontrol pompa air via website, sensor kelembaban tanah, irigasi pintar, pertanian efisien, IoT pertanian, irigasi lahan kering, teknologi pertanian Indonesia" />
 <meta name="author" content="ADOSISTERING" />
-<meta name="geo.region" content="ID" />
-<meta name="geo.country" content="ID" />
+<meta name="geo.region" content="ID-JT" />
+<meta name="geo.placename" content="Purwokerto, Jawa Tengah" />
+<meta name="geo.position" content="-7.4316;109.2474" />
+<meta name="ICBM" content="-7.4316, 109.2474" />
 
 <!-- Favicons -->
 <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
 <link rel="manifest" href="/favicons/site.webmanifest" />
-<meta name="theme-color" content="#166534" />
+<meta name="theme-color" content="#54A610" />
 
-<!-- Preconnect & Fonts -->
+<!-- Resource Hints — dns-prefetch as fallback for browsers without preconnect -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- Fonts — only needed weights, swap for faster LCP -->
 <link
   rel="preload"
   as="style"
-  href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap"
 />
 <link
   rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap"
   media="print"
   onload="this.media='all'"
 />
 <noscript>
   <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap"
   />
 </noscript>
 

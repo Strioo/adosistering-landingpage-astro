@@ -97,8 +97,7 @@
   }
 
   .form-label:has(+ input:disabled),
-  .form-label:has(+ textarea:disabled),
-  .form-label:has(+ select:disabled) {
+  .form-label:has(+ textarea:disabled) {
     @apply text-gray-400;
   }
 
@@ -164,40 +163,6 @@
     padding: 12px 16px;
     resize: vertical;
     line-height: 1.6;
-  }
-
-  .form-select {
-    cursor: pointer;
-    /* Hide native arrow completely across all browsers */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    /* Custom chevron — matches the design's dark gray arrow */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F4F4F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 16px 16px;
-    padding-right: 44px;
-    /* Ensure text does not bleed under the arrow */
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-
-  /* Placeholder option styling — grey like a real placeholder */
-  .form-select:required:invalid,
-  .form-select option[value=""][disabled] {
-    color: #9CA3AF;
-  }
-
-  .form-select option {
-    color: #111827;
-  }
-
-  .form-select:focus {
-    border-color: #3b7410;
-    outline: none;
-    box-shadow: none;
   }
 
   .form-hint {
