@@ -52,3 +52,8 @@ lhci_reports/
 
 # Internal design documentation (excluded from repo)
 design-tokens.md
+
+# Image source backups (kept locally only)
+*.original.png
+*.original.jpg
+*.original.jpeg
