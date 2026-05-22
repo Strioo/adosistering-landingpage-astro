@@ -6,21 +6,26 @@
  */
 import { Image } from "astro:assets";
 import mapBg from "@/assets/images/map-background.png";
-import sampleImg from "@/assets/images/implement-sample.png";
+import imgKedungbenda from "@/assets/images/implement-kedungbenda.png";
+import imgMernekJenek from "@/assets/images/implement-mernek_jenek.png";
+import imgDawuhan from "@/assets/images/implement-dawuhan.png";
 
 const locations = [
   {
     name: "Desa KedungBenda, Purbalingga",
+    image: imgKedungbenda,
     description:
       "ADOSISTERING mengintegrasikan sensor, kontrol pompa, dan dashboard monitoring untuk membantu petani mengambil keputusan irigasi yang tepat.",
   },
   {
     name: "Kawista Emji Mernek Jenek, Cilacap",
+    image: imgMernekJenek,
     description:
       "ADOSISTERING mengintegrasikan sensor, kontrol pompa, dan dashboard monitoring untuk membantu petani mengambil keputusan irigasi yang tepat.",
   },
   {
     name: "Desa Dawuhan, Banyumas",
+    image: imgDawuhan,
     description:
       "ADOSISTERING mengintegrasikan sensor, kontrol pompa, dan dashboard monitoring untuk membantu petani mengambil keputusan irigasi yang tepat.",
   },
@@ -62,9 +67,9 @@ const locations = [
         {locations.map((loc) => (
           <div class="bg-white rounded-2xl shadow-lg border border-neutral-100 p-4 sm:p-5">
             <!-- Image with green border/frame -->
-            <div class="rounded-xl overflow-hidden border-2 border-primary-500 mb-5">
+            <div class="rounded-xl overflow-hidden mb-5">
               <Image
-                src={sampleImg}
+                src={loc.image}
                 alt={`Lokasi implementasi ADOSISTERING di ${loc.name}`}
                 width={500}
                 quality={85}
